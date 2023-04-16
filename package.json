@@ -1,0 +1,27 @@
+{
+  "name": "chatgpt-diagrams",
+  "version": "0.0.1",
+  "description": "Enhance the ChatGPT website to allow diagrams to be presented inline.",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "start": "node --max-old-space-size=8192 node_modules/rollup/dist/bin/rollup -c -w"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/config-webextension": "^2.8.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "parcel": "^2.8.3",
+    "rollup": "^3.20.2",
+    "rollup-plugin-chrome-extension": "^3.6.12",
+    "rollup-plugin-zip": "^1.0.3",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "mermaid": "^10.1.0"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
