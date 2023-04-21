@@ -10,6 +10,8 @@ export default {
   output: {
     dir: 'dist',
     format: 'esm',
+    // note sourcemaps seem to fail to generate when set to 'inline'
+    sourcemap: true,
   },
   plugins: [
     //  always put chromeExtension() before other plugins
@@ -19,7 +21,7 @@ export default {
     resolve(),
     commonjs(),
     //  zip in production mode
-    isProduction && zip({ dir: "dist_packed" })
+    isProduction && zip({ dir: "release" })
   ],
 }
 

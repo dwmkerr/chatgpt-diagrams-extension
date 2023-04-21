@@ -4,8 +4,10 @@
   "description": "Enhance the ChatGPT website to allow diagrams to be presented inline.",
   "type": "module",
   "scripts": {
+    "start": "node --max-old-space-size=8192 node_modules/rollup/dist/bin/rollup -c -w",
     "build": "rollup -c",
-    "start": "node --max-old-space-size=8192 node_modules/rollup/dist/bin/rollup -c -w"
+    "test": "echo 'coming soon'",
+    "release": "NODE_ENV=production rollup -c"
   },
   "license": "MIT",
   "devDependencies": {
