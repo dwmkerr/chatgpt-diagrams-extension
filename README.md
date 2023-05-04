@@ -103,8 +103,8 @@ A quick-and-dirty list of improvements and next steps:
 
 - [ ] build: tests
 - [ ] build: commitlint
-- [ ] build: pipeline to create package
-- [ ] build: release please
+- [x] build: pipeline to create package
+- [x] build: release please
 - [ ] docs: table of local commands
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing?)
 - [ ] docs: table of libraries used

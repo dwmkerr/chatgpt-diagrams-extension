@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "node --max-old-space-size=8192 node_modules/rollup/dist/bin/rollup -c -w",
-    "build": "rollup -c",
+    "build": "node --max-old-space-size=8192 node_modules/rollup/dist/bin/rollup -c",
     "test": "echo 'coming soon'",
-    "release": "NODE_ENV=production rollup -c"
+    "release": "NODE_ENV=production node --max-old-space-size=8192 node_modules/rollup/dist/bin/rollup -c"
   },
   "license": "MIT",
   "devDependencies": {

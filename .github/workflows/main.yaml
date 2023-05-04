@@ -1,10 +1,12 @@
 name: main
+
 on:
   push:
     branches:
       - main
+
 jobs:
-  main:
+  cicd:
     runs-on: ubuntu-20.04
     steps:
       # If the 'release please' action has been performed, we can actually
@@ -30,11 +32,17 @@ jobs:
       - name: Test
         run: make test
 
-      # Verify that we can create the release package.
-      - name: Verify Release
+      # Create and verify the release.
+      - name: Create and Verify Release
         run: |
           make release
-          test -f "./release/chatgpt-diagrams-*.zip"
+          if test -n "$(find ./release -maxdepth 1 -name 'chatgpt-diagrams-*.zip' -print -quit)";
+          then
+            echo "release exists..."
+          else
+            echo "cannot find release..."
+            exit 1
+          fi
 
       # Upload extension artifact.
       - name: Upload Extension Artifact
@@ -43,10 +51,11 @@ jobs:
           name: chatgpt-diagrams-browser-extension
           path: ./release/chatgpt-diagrams-*.zip
 
-      # Run Release Please to create release pull requests.
+      # Run Release Please to create release pull requests if we have merged to
+      # the main branch.
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          package-name: chatgp4-diagrams-extension
+          package-name: chatgpt-diagrams-extension
