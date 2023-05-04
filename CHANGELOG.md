@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.2...v0.0.4) (2023-05-04)
+
+
+### Miscellaneous Chores
+
+* release 0.0.3 ([c199009](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/c199009d8e9628915e55d12efb3bf0652d64f879))
+* release 0.0.4 ([5c65693](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/5c65693b0110e2c2eee5d5c111699007a7e05c62))
+
 ## 0.0.2 (2023-05-04)
 
 
