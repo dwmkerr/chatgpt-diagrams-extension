@@ -1,10 +1,13 @@
-name: main
+name: cicd
+
+# Run on all pull requests and pushes. The release actions will be limited to 
+# run on the main branch only.
 on:
+  pull_request:
   push:
-    branches:
-        - build/release-please
+
 jobs:
-  main:
+  cicd:
     runs-on: ubuntu-20.04
     steps:
       # If the 'release please' action has been performed, we can actually
@@ -43,8 +46,10 @@ jobs:
           name: chatgpt-diagrams-browser-extension
           path: ./release/chatgpt-diagrams-*.zip
 
-      # Run Release Please to create release pull requests.
+      # Run Release Please to create release pull requests if we have merged to
+      # the main branch.
       - uses: google-github-actions/release-please-action@v3
+        if: github.ref == 'refs/heads/build/release-please'
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
