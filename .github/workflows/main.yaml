@@ -1,0 +1,52 @@
+name: main
+on:
+  push:
+    branches:
+      - main
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    steps:
+      # If the 'release please' action has been performed, we can actually
+      # deploy the website.
+      # Note: *every* step here needs to check the 'release_created' flag.
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Fixup Git URLs, see:
+      # https://stackoverflow.com/questions/70663523/the-unauthenticated-git-protocol-on-port-9418-is-no-longer-supported
+      - name: Fix up git URLs
+        run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
+
+      # Install dependencies.
+      - name: Install Dependencies
+        run: npm install
+
+      # Ensure that we can build the extension.
+      - name: Build
+        run: make build
+
+      # Run all tests.
+      - name: Test
+        run: make test
+
+      # Verify that we can create the release package.
+      - name: Verify Release
+        run: |
+          make release
+          test -f "./release/chatgpt-diagrams-*.zip"
+
+      # Upload extension artifact.
+      - name: Upload Extension Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: chatgpt-diagrams-browser-extension
+          path: ./release/chatgpt-diagrams-*.zip
+
+      # Run Release Please to create release pull requests.
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: chatgp4-diagrams-extension

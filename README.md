@@ -105,3 +105,5 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] feat: Lightbox for diagrams
 - [ ] feat: 'copy' button for diagrams
 - [ ] improvement: use the mutation observer (see ./src/observe.js) to watch for new code samples, rather than scanning the DOM on a timer
+- [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
+- [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
