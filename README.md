@@ -12,6 +12,7 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
     * [Manifest](#manifest)
     * [Debugging](#debugging)
     * [Verifying Pull Requests](#verifying-pull-requests)
+* [Versioning](#versioning)
 * [Task List](#task-list)
 
 <!-- vim-markdown-toc -->
@@ -82,6 +83,19 @@ make release
 ```
 
 These commands will be executed for pull requests.
+
+## Versioning
+
+The version of the extension is defined in the [`package.json`](./package.json) file.
+
+Releasing in managed via [Release Please](https://github.com/googleapis/release-please) in the [`main.yaml`](./.github/workflows/main.yaml) workflow file.
+
+If you need to manually trigger a release, run:
+
+```bash
+git commit --allow-empty -m "chore: release 2.0.0" -m "Release-As: 2.0.0"
+```
+
 
 ## Task List
 
