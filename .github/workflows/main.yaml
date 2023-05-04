@@ -2,7 +2,7 @@ name: main
 on:
   push:
     branches:
-      - main
+        - build/release-please
 jobs:
   main:
     runs-on: ubuntu-20.04
