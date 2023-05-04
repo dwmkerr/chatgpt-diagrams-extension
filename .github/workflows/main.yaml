@@ -1,10 +1,9 @@
-name: cicd
+name: main
 
-# Run on all pull requests and pushes. The release actions will be limited to 
-# run on the main branch only.
 on:
-  pull_request:
   push:
+    branches:
+      - build/release-please
 
 jobs:
   cicd:
@@ -49,7 +48,6 @@ jobs:
       # Run Release Please to create release pull requests if we have merged to
       # the main branch.
       - uses: google-github-actions/release-please-action@v3
-        if: github.ref == 'refs/heads/build/release-please'
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

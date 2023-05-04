@@ -15,6 +15,7 @@ test: # test the code
 release: # build the release package
 	rm -rf ./release
 	npm run release
+	ls ./release
 
 .PHONY: serve-samples
 serve-samples: # serve the sample ChatGPT pages.
