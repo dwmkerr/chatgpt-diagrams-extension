@@ -3,7 +3,7 @@ name: main
 on:
   push:
     branches:
-      - build/release-please
+      - main
 
 jobs:
   cicd:
