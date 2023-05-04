@@ -30,4 +30,6 @@ jobs:
     - name: Verify Release
       run: |
         make release
+        echo "testing release..."
+        ls "./release"
         test -f "./release/chatgpt-diagrams-*.zip"
