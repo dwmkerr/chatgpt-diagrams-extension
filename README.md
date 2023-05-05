@@ -115,7 +115,7 @@ git commit --allow-empty -m "chore: release 2.0.0" -m "Release-As: 2.0.0"
 
 A quick-and-dirty list of improvements and next steps:
 
-- [ ] build: tests
+- [x] build: tests
 - [ ] build: commitlint
 - [x] build: pipeline to create package
 - [x] build: release please
@@ -136,3 +136,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
 - [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
 - [ ] improvement: icon for 'show diagram' button
+- [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6 this is also checking if we can refer to issues like this #6
