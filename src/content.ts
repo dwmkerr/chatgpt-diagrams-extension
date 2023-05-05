@@ -1,29 +1,14 @@
 import mermaid from 'mermaid';
+import * as chatgptElements from './lib/chatgpt-elements';
+
+const config = {
+  scanForDiagramsIntervalMS: 1000,
+};
 
 mermaid.initialize({
   startOnLoad: false,
   theme: 'forest',
 })
-
-const config = {
-  queries: {
-    //  Idenitifies mermaid code blacks that we haven't processed.
-    //  TODO: needs to exclude the class we add to indicate processed.
-
-    //  How this works:
-    //  1. <code> tags
-    //  2. with the 'hljs' class (highlight JS, which is applied to code blocks
-    //     but not inline snippets (could also just limit search to code blocks
-    //     that are descendants of pre tags).
-    //  3. Doesn't contain 'chatgpt-digrams' - which we add when we've
-    //     processed a tag.
-    anyCodeBlocks: '//code[contains(@class, "hljs") and not(contains(@class, "chatgpt-diagrams"))]',
-    mermaidCodeBlocks: '//code[contains(@class, "mermaid") and not contains(@class, "chatgpt-diagrams")]',
-    associatedPreTag: 'ancestor::pre',
-    associatedCopyCodeButton: 'ancestor::pre//button[contains(text(), "Copy")]',
-  },
-  scanForDiagramsIntervalMS: 1000,
-};
 
 //  First, we set up the triggers that we will use to identify when there are
 //  new code blocks to check. If the page was static, we could just traverse
@@ -32,41 +17,17 @@ const config = {
 //  elements, we just scan for them on a timer.
 setInterval(() => updateDiagrams(null), config.scanForDiagramsIntervalMS);
 
-function queryFindExactlyOneElement(xpathQuery, contextNode) {
-  //  Run the xpath query, retrieving a snapshop.
-  const snapshot = document.evaluate(xpathQuery, contextNode,
-                                 null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-                                 null);
-
-  //  If we did not find the expected number of results, bail.
-  if (snapshot.snapshotLength !== 1) {
-    const errorMessage = `failed to find exactly one element when running query '${xpathQuery}' - ${snapshot.snapshotLength} element(s) were found`;
-    throw new Error(errorMessage);
-  }
-
-  //  Return the element we found.
-  return snapshot.snapshotItem(0);
-}
-
 function updateDiagrams(nodesToScan) {
   //  We search for any code blocks because at the moment ChatGPT rarely
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
-  const elements = document.evaluate(config.queries.anyCodeBlocks, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-  console.log(`Found ${elements.snapshotLength} elements...`);
+  const elements = chatgptElements.getUnprocessedCodeBlocks(window);
+  console.log(`Found ${elements.length} unprocessed code blocks...`);
 
   // Loop through the elements and add a button next to each one
-  for (let i = 0; i < elements.snapshotLength; i++) {
-    //  Find the code element. From this, the overall parent 'pre' block, and
-    //  the 'copy code' button.
-    const codeElement = elements.snapshotItem(i);
-    if (!codeElement) {
-      console.error('Code block element is null, skipping...');
-      continue;
-    }
-
+  elements.forEach((codeElement, index) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
-    const copyButton = queryFindExactlyOneElement(config.queries.associatedCopyCodeButton, codeElement);
-    const preTag = queryFindExactlyOneElement(config.queries.associatedPreTag, codeElement);
+    const copyButton = chatgptElements.getCodeElementAssociatedCopyButton(window, codeElement);
+    const preTag = chatgptElements.getCodeElementAssociatedPreTag(window, codeElement);
 
     // Create a button element
     const showDiagramButton = document.createElement('button');
@@ -86,7 +47,7 @@ function updateDiagrams(nodesToScan) {
 
       // Render the diagram using the Mermaid.js library
       try {
-        const { svg } = await mermaid.render('mermaid-' + i, code);
+        const { svg } = await mermaid.render('mermaid-' + index, code);
         div.innerHTML = svg;
         //  We want to position the diagram after the <pre> tag that contains the
         //  code block.
@@ -106,5 +67,5 @@ function updateDiagrams(nodesToScan) {
     //  Add the 'chatgpt-diagrams' class to the code block - this means we will
     //  exclude it from later searches.
     codeElement.className += ' chatgpt-diagrams';
-  }
+  });
 }

@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  cicd:
+  main:
     runs-on: ubuntu-20.04
     # Write all permissions needed for 'release please' PR creation.
     permissions: write-all

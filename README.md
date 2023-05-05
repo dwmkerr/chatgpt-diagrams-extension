@@ -8,8 +8,10 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 
 * [Quickstart](#quickstart)
 * [Developer Guide](#developer-guide)
+    * [Code Structure](#code-structure)
     * [Running the Sample Pages](#running-the-sample-pages)
     * [Manifest](#manifest)
+    * [Testing](#testing)
     * [Debugging](#debugging)
     * [Verifying Pull Requests](#verifying-pull-requests)
 * [Versioning](#versioning)
@@ -54,6 +56,12 @@ npm start
 
 Load the unpacked extension in your browser from the `./dist` folder.
 
+### Code Structure
+
+- manifest
+- key files
+- lib
+
 ### Running the Sample Pages
 
 The following command runs a local webserver, serving the content at [`./samples`](./samples). This makes it easy to test locally, without internet connectivity and without having to regularly log into ChatGPT:
@@ -67,6 +75,12 @@ The sample page is served at `http://localhost:3000`.
 ### Manifest
 
 Note that the `version` field is omitted from [`manifest.json`](./src/manifest.json). When fields like `version` are omitted, rollup copies them over from the `package.json` file.
+
+### Testing
+
+Test Files
+JSDOM
+Jest
 
 ### Debugging
 
@@ -121,3 +135,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] improvement: use the mutation observer (see ./src/observe.js) to watch for new code samples, rather than scanning the DOM on a timer
 - [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
 - [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
+- [ ] improvement: icon for 'show diagram' button
