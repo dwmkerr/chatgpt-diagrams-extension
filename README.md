@@ -1,5 +1,7 @@
 # chatgpt-diagrams
 
+[![codecov](https://codecov.io/gh/dwmkerr/chatgpt-diagrams-extension/branch/main/graph/badge.svg?token=6Wj5EwCVqf)](https://codecov.io/gh/dwmkerr/chatgpt-diagrams-extension)
+
 A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 
 ![Demo Recording of ChatGPT Diagrams Extension](./docs/demo-recording.gif)
