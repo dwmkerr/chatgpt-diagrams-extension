@@ -28,6 +28,10 @@ jobs:
       continue-on-error: true
       run: make test
 
+    # Upload coverage.
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+
     # Verify that we can create the release package.
     - name: Verify Release
       run: |

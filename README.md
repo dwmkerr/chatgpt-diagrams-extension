@@ -116,6 +116,7 @@ git commit --allow-empty -m "chore: release 2.0.0" -m "Release-As: 2.0.0"
 A quick-and-dirty list of improvements and next steps:
 
 - [x] build: tests
+- [ ] build: coverage badge
 - [ ] build: commitlint
 - [x] build: pipeline to create package
 - [x] build: release please
