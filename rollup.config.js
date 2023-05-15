@@ -1,9 +1,9 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import { chromeExtension, simpleReloader } from 'rollup-plugin-chrome-extension'
-import zip from "rollup-plugin-zip";
 
-const isProduction = process.env.NODE_ENV === 'production'
+//  We may use isProduction to configure source maps later.
+//  const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
   input: 'src/manifest.json',
@@ -20,8 +20,6 @@ export default {
     //  plugins required for npm modules, cjs and ts
     resolve(),
     commonjs(),
-    //  zip in production mode
-    isProduction && zip({ dir: "release" })
   ],
 }
 

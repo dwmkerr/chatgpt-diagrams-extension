@@ -36,8 +36,7 @@ jobs:
     - name: Verify Release
       run: |
         make release
-        if test -n "$(find ./release -maxdepth 1 -name 'chatgpt-diagrams-*.zip' -print -quit)";
-        then
+        if [ -f ./release/chatgpt-diagrams-extension.zip ]; then
           echo "release exists..."
         else
           echo "cannot find release..."

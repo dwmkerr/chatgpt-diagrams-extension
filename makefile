@@ -13,8 +13,9 @@ test: # test the code
 
 .PHONY: release
 release: # build the release package
-	rm -rf ./release
-	npm run release
+	npm run build
+	rm -rf ./release && mkdir -p ./release
+	cd ./dist && zip ../release/chatgpt-diagrams-extension.zip . -r
 	ls ./release
 
 .PHONY: serve-samples
