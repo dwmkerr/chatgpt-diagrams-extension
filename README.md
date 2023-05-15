@@ -18,6 +18,8 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
     * [Debugging](#debugging)
     * [Verifying Pull Requests](#verifying-pull-requests)
 * [Versioning](#versioning)
+* [Releasing](#releasing)
+    * [Extension Screenshots](#extension-screenshots)
 * [Task List](#task-list)
 
 <!-- vim-markdown-toc -->
@@ -113,18 +115,54 @@ If you need to manually trigger a release, run:
 git commit --allow-empty -m "chore: release 2.0.0" -m "Release-As: 2.0.0"
 ```
 
+## Releasing
+
+When uploading a new version, follow the steps below.
+
+### Extension Screenshots
+
+If needed, update the screenshots. Screenshots should be 1280x800 pixels, set this in the Developer Tools (which can also be used to capture the screenshot to the Downloads folder.
+
+Currently screenshots do not include a browser frame.
+
+Screenshots do not have the ChatGPT sidebar, avoiding distractions.
+
+Screenshots after the first one do not have the code sample, avoiding distractions.
+
+Open Developer Tools, use the 'device size' button to set the responsive screen size, adjust the size to 1280x800, delete the sidebar from the nodes view, press Command+Shift+P and select 'Capture Screenshot'.
+
+Prompts for screenshots so far are:
+
+1. Render a flowchart showing how a browser makes a web request and a server responds. Use mermaid.js.
+2. Create a UML class diagram showing relationships for the data model for a simple food delivery database. Use mermaid.js.
+3. Create an architecture diagram that would show the key components in an instant messaging application, use mermaidjs.
+4. Create a sequence diagram showing how retry logic with retry queues is typically implemented when using Apache Kafka, use mermaidjs for the diagram
+
+Resize screenshots with:
+
+```bash
+brew install imagemagick
+
+new_width=1280
+for input in ./docs/screenshots/*.png; do
+    [[ -f "$input" ]] || continue
+    output="${input/\.png/-${new_width}.png}"
+    echo "Convert: ${input} -> ${output}"
+    convert "${input}" -resize "${new_width}x" "${output}"
+done
+```
 
 ## Task List
 
 A quick-and-dirty list of improvements and next steps:
 
 - [x] build: tests
-- [ ] build: coverage badge
+- [x] build: coverage badge
 - [ ] build: commitlint
 - [x] build: pipeline to create package
 - [x] build: release please
 - [ ] docs: table of local commands
-- [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing?)
+- [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
 - [ ] docs: table of libraries used
 - [ ] feat: error handling
 - [ ] feat: Create script to open a new chrome window, with the appropriate command line flags to load the dist unpacked
@@ -132,7 +170,7 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] feat: counter for extension icon that shows number of diagrams processed
 - [ ] feat: sample page rendering to speed up testing and local dev
 - [ ] docs: blog post sharing extension, share online (LI, HN, Reddit)
-- [ ] docs: better icon - just a simple 50/50 split of the two logos down the middle, or diagonal
+- [x] docs: better icon - just a simple 50/50 split of the two logos down the middle, or diagonal
 - [ ] bug: debugger doesn't work on chrome, seems to be a sourcemaps issue (raised as https://github.com/crxjs/chrome-extension-tools/issues/691)
 - [ ] feat: Lightbox for diagrams
 - [ ] feat: 'copy' button for diagrams
@@ -141,3 +179,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
 - [ ] improvement: icon for 'show diagram' button
 - [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
+- [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
