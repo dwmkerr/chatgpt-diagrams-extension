@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.4...v0.0.5) (2023-05-15)
+
+
+### Bug Fixes
+
+* correct zip release package format ([#8](https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/8)) ([60ee805](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/60ee8059ab5c8acce65788f91139b027c81cb0c3))
+
 ## [0.0.4](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.2...v0.0.4) (2023-05-04)
 
 
