@@ -44,8 +44,7 @@ jobs:
       - name: Create and Verify Release
         run: |
           make release
-          if test -n "$(find ./release -maxdepth 1 -name 'chatgpt-diagrams-*.zip' -print -quit)";
-          then
+          if [ -f ./release/chatgpt-diagrams-extension.zip ]; then
             echo "release exists..."
           else
             echo "cannot find release..."
@@ -57,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: chatgpt-diagrams-browser-extension
-          path: ./release/chatgpt-diagrams-*.zip
+          path: ./release/chatgpt-diagrams-extension.zip
 
       # Run Release Please to create release pull requests if we have merged to
       # the main branch.
@@ -74,4 +73,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          gh release upload ${{ steps.release.outputs.tag_name }} ./release/chatgpt-diagrams-*.zip
+          gh release upload ${{ steps.release.outputs.tag_name }} ./release/chatgpt-diagrams-extension.zip
