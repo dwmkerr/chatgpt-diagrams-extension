@@ -20,6 +20,7 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 * [Versioning](#versioning)
 * [Releasing](#releasing)
     * [Extension Screenshots](#extension-screenshots)
+* [Useful Resources](#useful-resources)
 * [Task List](#task-list)
 
 <!-- vim-markdown-toc -->
@@ -63,9 +64,18 @@ Load the unpacked extension in your browser from the `./dist` folder.
 
 ### Code Structure
 
-- manifest
-- key files
-- lib
+The code is structured in such a way that you should be able to immediately see the key files that make up the extension.
+
+At root level are the essential files that make up an extension, all other code is kept in the [`./lib`](./lib) folder.
+
+```
+manifest.json  # the extension definition and metadata
+content.ts     # the content script, runs on chatgpt browser tabs, renders the diagrams
+options.html   # the UI for the options page
+options.js     # the logic for the options page
+setup-jest.js  # utility to configure testing environment
+lib/           # bulk of the logic for the extension
+```
 
 ### Running the Sample Pages
 
@@ -152,19 +162,26 @@ for input in ./docs/screenshots/*.png; do
 done
 ```
 
+## Useful Resources
+
+https://joshisa.ninja/2021/10/22/browser-extension-with-rollup-omnibox-chatter.html
+
 ## Task List
 
 A quick-and-dirty list of improvements and next steps:
 
+- check options UI works in extension screen as well as inline in tab
+
 - [x] build: tests
 - [x] build: coverage badge
 - [ ] build: commitlint
+- [ ] feat: error handling
+- [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
+- [ ] docs: table of local commands
+- [ ] docs: table of libraries used
 - [x] build: pipeline to create package
 - [x] build: release please
-- [ ] docs: table of local commands
-- [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
-- [ ] docs: table of libraries used
-- [ ] feat: error handling
+- [ ] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
 - [ ] feat: Create script to open a new chrome window, with the appropriate command line flags to load the dist unpacked
 - [ ] feat: edit xpath queries via options page
 - [ ] feat: counter for extension icon that shows number of diagrams processed
