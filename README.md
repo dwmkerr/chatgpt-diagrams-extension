@@ -68,11 +68,15 @@ Load the unpacked extension in your browser from the `./dist` folder.
 
 The following commands can be used to help development:
 
-| Command         | Description                                                                   |
-|-----------------|-------------------------------------------------------------------------------|
-| `npm start`     | Run in development mode. Updates `./dist` on changes to `./src`.              |
-| `npm run build` | Build the production bundle to `./dist`.                                      |
-| `npm run tsc`   | Run the TypeScript compiler, verifies the correctness of the TypeScript code. |
+| Command              | Description                                                                   |
+|----------------------|-------------------------------------------------------------------------------|
+| `npm start`          | Run in development mode. Updates `./dist` on changes to `./src`.              |
+| `npm run build`      | Build the production bundle to `./dist`.                                      |
+| `npm run tsc`        | Run the TypeScript compiler, verifies the correctness of the TypeScript code. |
+|----------------------|-------------------------------------------------------------------------------|
+| `npm test`           | Run unit tests, output coverage to `./coverage`.                              |
+| `npm run test:watch` | Run unit tests, coverage only on files that test run on, watch mode.          |
+| `npm run test:debug` | Run unit tests, with the Chrome Inspector, initially 'break', watch mode.     |
 
 ### Code Structure
 
@@ -84,7 +88,7 @@ At root level are the essential files that make up an extension, all other code 
 manifest.json  # the extension definition and metadata
 content.ts     # the content script, runs on chatgpt browser tabs, renders the diagrams
 options.html   # the UI for the options page
-options.js     # the logic for the options page
+options.ts     # the logic for the options page
 setup-jest.js  # utility to configure testing environment
 lib/           # bulk of the logic for the extension
 ```

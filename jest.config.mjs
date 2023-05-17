@@ -3,13 +3,18 @@
  * https://jestjs.io/docs/configuration
  */
 
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 export default {
+
+  //  We're using ts-jest for typescript support.
+  preset: 'ts-jest',
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
+  collectCoverageFrom: [ 'src/**/*.{js,ts}' ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
