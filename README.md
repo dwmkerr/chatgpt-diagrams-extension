@@ -11,6 +11,7 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 
 * [Quickstart](#quickstart)
 * [Developer Guide](#developer-guide)
+    * [Developer Commands](#developer-commands)
     * [Code Structure](#code-structure)
     * [Running the Sample Pages](#running-the-sample-pages)
     * [Manifest](#manifest)
@@ -61,6 +62,14 @@ npm start
 ```
 
 Load the unpacked extension in your browser from the `./dist` folder.
+
+### Developer Commands
+
+The following commands can be used to help development:
+
+| Command       | Description                                                                   |
+|---------------|-------------------------------------------------------------------------------|
+| `npm run tsc` | Run the TypeScript compiler, verifies the correctness of the TypeScript code. |
 
 ### Code Structure
 
@@ -197,3 +206,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] improvement: icon for 'show diagram' button
 - [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
+- [ ] improvement: update manifest version via webpack rather than release please

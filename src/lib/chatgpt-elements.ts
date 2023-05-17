@@ -17,36 +17,39 @@ const queries = {
   associatedCopyCodeButton: 'ancestor::pre//button[contains(text(), "Copy")]',
 };
 
-export function getUnprocessedCodeBlocks(window) {
+export function getUnprocessedCodeBlocks(window: Window): Array<HTMLElement> {
+  debugger; // TODO check window.XPathResult
   const result = window.document.evaluate(
     queries.anyCodeBlocks,
     window.document,
     null,
+    //  @ts-expect-error - jsdom is missing the 'XPathResult' types...
     window.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
     null
   );
 
   return Array
     .from({ length: result.snapshotLength }, (_, index) => result.snapshotItem(index))
+    .map(element => element as HTMLElement)
     .filter(element => element); // filter out null elements
 }
 
-export function getCodeElementAssociatedCopyButton(window, codeElement) {
+export function getCodeElementAssociatedCopyButton(window: Window, codeElement: HTMLElement): HTMLElement {
   //  Get the parent 'pre' tag, as well as the 'copy' button.
   const copyButton = queryFindExactlyOneElement(
     window,
     queries.associatedCopyCodeButton,
     codeElement
   );
-  return copyButton;
+  return copyButton as HTMLElement;
 }
 
-export function getCodeElementAssociatedPreTag(window, codeElement) {
+export function getCodeElementAssociatedPreTag(window: Window, codeElement: HTMLElement): HTMLElement {
   //  Get the parent 'pre' tag, as well as the 'copy' button.
   const preTag = queryFindExactlyOneElement(
     window,
     queries.associatedPreTag,
     codeElement
   );
-  return preTag;
+  return preTag as HTMLElement;
 }

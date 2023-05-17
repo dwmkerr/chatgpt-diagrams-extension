@@ -1,6 +1,6 @@
 export enum DisplayMode {
-  BelowDiagram,
-  AsTabs,
+  BelowDiagram = "BelowDiagram",
+  AsTabs = "AsTabs",
 }
 
 export class Configuration {

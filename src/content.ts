@@ -15,16 +15,16 @@ mermaid.initialize({
 //  the DOM, however as it is (currently) rendered with React, the elements
 //  are regularly re-created. To simplify the process of finding the code
 //  elements, we just scan for them on a timer.
-setInterval(() => updateDiagrams(null), config.scanForDiagramsIntervalMS);
+setInterval(() => updateDiagrams(), config.scanForDiagramsIntervalMS);
 
-function updateDiagrams(nodesToScan) {
+function updateDiagrams() {
   //  We search for any code blocks because at the moment ChatGPT rarely
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
   const elements = chatgptElements.getUnprocessedCodeBlocks(window);
   console.log(`Found ${elements.length} unprocessed code blocks...`);
 
   // Loop through the elements and add a button next to each one
-  elements.forEach((codeElement, index) => {
+  elements.forEach((codeElement: HTMLElement, index: Number) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
     const copyButton = chatgptElements.getCodeElementAssociatedCopyButton(window, codeElement);
     const preTag = chatgptElements.getCodeElementAssociatedPreTag(window, codeElement);

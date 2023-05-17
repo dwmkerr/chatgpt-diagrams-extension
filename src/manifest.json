@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT Diagrams",
+  "version": "0.0.69",
   "description": "Render diagrams directly in ChatGPT",
   "options_ui": {
     "page": "options.html",
@@ -10,7 +11,7 @@
     "storage"
   ],
   "content_scripts": [{
-    "js": ["content.ts"],
+    "js": ["content.js"],
     "matches": [
       "https://chat.openai.com/*",
       "http://localhost/*"
