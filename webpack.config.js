@@ -6,8 +6,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 function transformManifest(buffer) {
   //  Load the manifest object, update the versions, from the package.json,
   //  send back to webpack.
-  debugger;
-  console.log('hello from txfn');
   const pkg = JSON.parse(fs.readFileSync('./package.json'));
   const manifest = JSON.parse(buffer.toString());
   return JSON.stringify({
@@ -67,9 +65,6 @@ export default (env, argv) => ({
       ],
     }),
   ],
-  optimization: {
-    splitChunks: false,
-  },
   //  These hints tell webpack that we can expect much larger than usual assets
   //  and entry points (as we compile things down to a few small files, this is
   //  ok as we load the extension from disk not the web).
