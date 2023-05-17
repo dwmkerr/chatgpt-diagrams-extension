@@ -66,11 +66,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: chatgpt-diagrams-extension
-          extra-files:
-          # Update the manifest version.
-           - type: json
-             path: src/manifest.json
-             jsonpath: "$.version"
 
       # If we have created a release, attach the artifacts to it.
       - name: Upload Release Artifact
