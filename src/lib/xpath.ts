@@ -5,12 +5,13 @@
  * @param {} xpathQuery - the XPath query to run
  * @param {} contextNode - the context node to start the query from, or null
  */
-export function queryFindExactlyOneElement(window, xpathQuery, contextNode) {
+export function queryFindExactlyOneElement(window: Window, xpathQuery: string, contextNode: Element) {
   //  Run the xpath query, retrieving a snapshop.
   const snapshot = window.document.evaluate(
     xpathQuery,
     contextNode,
     null,
+    //  @ts-expect-error - jsdom is missing the 'XPathResult' types...
     window.XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
     null
   );
