@@ -3,6 +3,19 @@ import path from 'path';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+function transformManifest(buffer) {
+  //  Load the manifest object, update the versions, from the package.json,
+  //  send back to webpack.
+  debugger;
+  console.log('hello from txfn');
+  const pkg = JSON.parse(fs.readFileSync('./package.json'));
+  const manifest = JSON.parse(buffer.toString());
+  return JSON.stringify({
+    ...manifest,
+    version: pkg.version,
+  }, null, 2);
+}
+
 export default (env, argv) => ({
   //  Use cheap and fast inline source maps in development mode.
   //  For prodution, standalone source maps.
@@ -47,21 +60,12 @@ export default (env, argv) => ({
     }),
     new CopyPlugin({
       patterns: [
-        "src/manifest.json",
+        //  Copy the images, icons etc, as is.
         { from: "src/images", to: "images" },
+        //  Copy the manifest - but update its version using the transform fn.
+        { from: "src/manifest.json", to: "manifest.json", transform(content) { return transformManifest(content) } },
       ],
     }),
-    //  if we choose to use the plugin...
-    //  import ChromeExtensionManifest from 'chrome-extension-manifest-webpack-plugin';
-    //  Load the package.json file to get metadata.
-    //  const pack = JSON.parse(fs.readFileSync('./package.json'));
-    // new ChromeExtensionManifest({
-    //   inputFile: './src/manifest.json',
-    //   outputFile: 'manifest.json',
-    //   props: {
-    //     version: pack.version,
-    //   },
-    // }),
   ],
   optimization: {
     splitChunks: false,
