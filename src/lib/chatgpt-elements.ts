@@ -18,7 +18,6 @@ const queries = {
 };
 
 export function getUnprocessedCodeBlocks(window: Window): Array<HTMLElement> {
-  debugger; // TODO check window.XPathResult
   const result = window.document.evaluate(
     queries.anyCodeBlocks,
     window.document,

@@ -3,7 +3,12 @@ import path from 'path';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-export default {
+export default (env, argv) => ({
+  //  Use cheap and fast inline source maps in development mode.
+  //  For prodution, standalone source maps.
+  //  Note that the 'eval' or 'sourcemap' options don't seem to load in Chrome
+  //  for some reason. So using inline for now.
+  devtool: argv.mode === 'development' ? 'inline-cheap-module-source-map' : 'source-map',
   cache: {
     type: 'filesystem',
   },
@@ -68,4 +73,4 @@ export default {
     maxEntrypointSize: 5*1024*1024,
     maxAssetSize: 5*1024*1024,
   }
-};
+});

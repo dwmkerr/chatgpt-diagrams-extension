@@ -7,7 +7,6 @@
  */
 export function queryFindExactlyOneElement(window: Window, xpathQuery: string, contextNode: Element) {
   //  Run the xpath query, retrieving a snapshop.
-  debugger; // TODO check window.XPathResult
   const snapshot = window.document.evaluate(
     xpathQuery,
     contextNode,
