@@ -243,4 +243,5 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
-- [ ] testing: **test_files** should be **fixtures**
+- [ ] testing: `__test_files__` should be `__fixtures__`
+- [ ] testing: better sample that doesn't have sidebar and includes more representative group of diagrams

@@ -5,7 +5,11 @@
  * @param {} xpathQuery - the XPath query to run
  * @param {} contextNode - the context node to start the query from, or null
  */
-export function queryFindExactlyOneElement(window: Window, xpathQuery: string, contextNode: Element) {
+export function queryFindExactlyOneElement(
+  window: Window,
+  xpathQuery: string,
+  contextNode: Element
+) {
   //  Run the xpath query, retrieving a snapshop.
   const snapshot = window.document.evaluate(
     xpathQuery,
