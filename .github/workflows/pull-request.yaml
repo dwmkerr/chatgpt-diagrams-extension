@@ -6,39 +6,37 @@ jobs:
   validate-pull-request:
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    # Fixup Git URLs, see:
-    # https://stackoverflow.com/questions/70663523/the-unauthenticated-git-protocol-on-port-9418-is-no-longer-supported
-    - name: Fix up git URLs
-      run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
+      # Fixup Git URLs, see:
+      # https://stackoverflow.com/questions/70663523/the-unauthenticated-git-protocol-on-port-9418-is-no-longer-supported
+      - name: Fix up git URLs
+        run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
 
-    # Install dependencies.
-    - name: Install Dependencies
-      run: npm install
+      # Install dependencies.
+      - name: Install Dependencies
+        run: npm install
 
-    # Ensure that we can build the extension.
-    - name: Build
-      run: make build
+      # Ensure that we can build the extension.
+      - name: Build
+        run: make build
 
-    # Run all tests.
-    - name: Test
-      # Until we resolve xpath/jsdom issues, we allow tests to fail.
-      continue-on-error: true
-      run: make test
+      # Run all tests.
+      - name: Test
+        run: make test
 
-    # Upload coverage.
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+      # Upload coverage.
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
 
-    # Verify that we can create the release package.
-    - name: Verify Release
-      run: |
-        make release
-        if [ -f ./release/chatgpt-diagrams-extension.zip ]; then
-          echo "release exists..."
-        else
-          echo "cannot find release..."
-          exit 1
-        fi
+      # Verify that we can create the release package.
+      - name: Verify Release
+        run: |
+          make release
+          if [ -f ./release/chatgpt-diagrams-extension.zip ]; then
+            echo "release exists..."
+          else
+            echo "cannot find release..."
+            exit 1
+          fi

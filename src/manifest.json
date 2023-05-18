@@ -6,16 +6,13 @@
     "page": "options.html",
     "open_in_tab": true
   },
-  "permissions": [
-    "storage"
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["https://chat.openai.com/*", "http://localhost/*"]
+    }
   ],
-  "content_scripts": [{
-    "js": ["content.js"],
-    "matches": [
-      "https://chat.openai.com/*",
-      "http://localhost/*"
-    ]
-  }],
   "icons": {
     "16": "images/icon16.png",
     "32": "images/icon32.png",

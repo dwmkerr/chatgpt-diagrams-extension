@@ -9,21 +9,23 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 
 <!-- vim-markdown-toc GFM -->
 
-* [Quickstart](#quickstart)
-* [Developer Guide](#developer-guide)
-    * [Developer Commands](#developer-commands)
-    * [Code Structure](#code-structure)
-    * [Running the Sample Pages](#running-the-sample-pages)
-    * [Manifest](#manifest)
-    * [Testing](#testing)
-    * [Debugging](#debugging)
-    * [Reloading the Extension](#reloading-the-extension)
-    * [Verifying Pull Requests](#verifying-pull-requests)
-* [Versioning](#versioning)
-* [Releasing](#releasing)
-    * [Extension Screenshots](#extension-screenshots)
-* [Useful Resources](#useful-resources)
-* [Task List](#task-list)
+- [Quickstart](#quickstart)
+- [Developer Guide](#developer-guide)
+  - [Developer Commands](#developer-commands)
+  - [Code Structure](#code-structure)
+  - [Running the Sample Pages](#running-the-sample-pages)
+  - [Manifest](#manifest)
+  - [Formatting and Code Quality Rules](#formatting-and-code-quality-rules)
+  - [Pre-Commit Hooks](#pre-commit-hooks)
+  - [Testing](#testing)
+  - [Debugging](#debugging)
+  - [Reloading the Extension](#reloading-the-extension)
+  - [Verifying Pull Requests](#verifying-pull-requests)
+- [Versioning](#versioning)
+- [Releasing](#releasing)
+  - [Extension Screenshots](#extension-screenshots)
+- [Useful Resources](#useful-resources)
+- [Task List](#task-list)
 
 <!-- vim-markdown-toc -->
 
@@ -68,15 +70,20 @@ Load the unpacked extension in your browser from the `./dist` folder.
 
 The following commands can be used to help development:
 
-| Command              | Description                                                                   |
-|----------------------|-------------------------------------------------------------------------------|
-| `npm start`          | Run in development mode. Updates `./dist` on changes to `./src`.              |
-| `npm run build`      | Build the production bundle to `./dist`.                                      |
-| `npm run tsc`        | Run the TypeScript compiler, verifies the correctness of the TypeScript code. |
-|----------------------|-------------------------------------------------------------------------------|
-| `npm test`           | Run unit tests, output coverage to `./coverage`.                              |
-| `npm run test:watch` | Run unit tests, coverage only on files that test run on, watch mode.          |
-| `npm run test:debug` | Run unit tests, with the Chrome Inspector, initially 'break', watch mode.     |
+| Command                    | Description                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| `npm start`                | Run in development mode. Updates `./dist` on changes to `./src`.                |
+| `npm run build`            | Build the production bundle to `./dist`.                                        |
+| `npm run tsc`              | Run the TypeScript compiler, verifies the correctness of the TypeScript code.   |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| `npm test`                 | Run unit tests, output coverage to `./coverage`.                                |
+| `npm run test:watch`       | Run unit tests, coverage only on files that test run on, watch mode.            |
+| `npm run test:debug`       | Run unit tests, with the Chrome Inspector, initially 'break', watch mode.       |
+| `npm run prettier:check`   | Check formatting of all files.                                                  |
+| `npm run prettier:watch`   | Format all files.                                                               |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| `make build`               | Create the release package.                                                     |
+| `make test`                | Validate the code, running `tsc` and unit tests.                                |
 
 ### Code Structure
 
@@ -106,6 +113,20 @@ The sample page is served at `http://localhost:3000`.
 ### Manifest
 
 Note that the `version` field is omitted from [`manifest.json`](./src/manifest.json). When fields like `version` are omitted, rollup copies them over from the `package.json` file.
+
+### Formatting and Code Quality Rules
+
+[Prettier](https://prettier.io/) is used for formatting. Pre-commit hooks are used to enforce code style.
+
+[ESLint]() is used for code-quality checks and rules.
+
+To understand why both are used, check ["Prettier vs Linters"](https://prettier.io/docs/en/comparison.html).
+
+### Pre-Commit Hooks
+
+[Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged) are used to run formatting and code quality checks on staged changes before they are committed.
+
+The configuration for lint-staged is in the [`package.json`](./package.json) file.
 
 ### Testing
 
@@ -196,7 +217,8 @@ A quick-and-dirty list of improvements and next steps:
 
 - [x] build: tests
 - [x] build: coverage badge
-- [ ] build: prettier and linting
+- [ ] build: prettier for formatting
+- [ ] build: eslint for code quality rules
 - [ ] build: commitlint
 - [ ] feat: error handling
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
@@ -221,4 +243,5 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
-- [ ] testing: __test_files__ should be __fixtures__
+- [ ] testing: `__test_files__` should be `__fixtures__`
+- [ ] testing: better sample that doesn't have sidebar and includes more representative group of diagrams

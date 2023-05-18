@@ -1,5 +1,5 @@
-import mermaid from 'mermaid';
-import * as chatgptElements from './lib/chatgpt-elements';
+import mermaid from "mermaid";
+import * as chatgptElements from "./lib/chatgpt-elements";
 
 const config = {
   scanForDiagramsIntervalMS: 1000,
@@ -7,8 +7,8 @@ const config = {
 
 mermaid.initialize({
   startOnLoad: false,
-  theme: 'forest',
-})
+  theme: "forest",
+});
 
 //  First, we set up the triggers that we will use to identify when there are
 //  new code blocks to check. If the page was static, we could just traverse
@@ -26,28 +26,33 @@ function updateDiagrams() {
   // Loop through the elements and add a button next to each one
   elements.forEach((codeElement: HTMLElement, index: Number) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
-    const copyButton = chatgptElements.getCodeElementAssociatedCopyButton(window, codeElement);
-    const preTag = chatgptElements.getCodeElementAssociatedPreTag(window, codeElement);
+    const copyButton = chatgptElements.getCodeElementAssociatedCopyButton(
+      window,
+      codeElement
+    );
+    const preTag = chatgptElements.getCodeElementAssociatedPreTag(
+      window,
+      codeElement
+    );
 
     // Create a button element
-    const showDiagramButton = document.createElement('button');
-    showDiagramButton.innerText = 'Show Diagram';
-    showDiagramButton.setAttribute('class', 'flex ml-auto gap-2');
+    const showDiagramButton = document.createElement("button");
+    showDiagramButton.innerText = "Show Diagram";
+    showDiagramButton.setAttribute("class", "flex ml-auto gap-2");
 
     // Add an event listener to the button
-    showDiagramButton.addEventListener('click', async () => {
+    showDiagramButton.addEventListener("click", async () => {
       //  Get the code from the code element.
       const code = codeElement.innerText.trim();
 
       // Create a div element for the diagram
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       // div.setAttribute('class', 'mermaid');
       // div.setAttribute('data-processed', 'false');
 
-
       // Render the diagram using the Mermaid.js library
       try {
-        const { svg } = await mermaid.render('mermaid-' + index, code);
+        const { svg } = await mermaid.render("mermaid-" + index, code);
         div.innerHTML = svg;
         //  We want to position the diagram after the <pre> tag that contains the
         //  code block.
@@ -56,7 +61,7 @@ function updateDiagrams() {
         preTag.after(div);
         // div.setAttribute('data-processed', 'true');
       } catch (err) {
-        console.error("an error occurred rendering the diagram", err)
+        console.error("an error occurred rendering the diagram", err);
         div.remove();
       }
     });
@@ -66,6 +71,6 @@ function updateDiagrams() {
 
     //  Add the 'chatgpt-diagrams' class to the code block - this means we will
     //  exclude it from later searches.
-    codeElement.className += ' chatgpt-diagrams';
+    codeElement.className += " chatgpt-diagrams";
   });
 }
