@@ -1,4 +1,4 @@
-import { jest } from "@jest/globals";
+import { describe, expect, afterEach, jest, test } from "@jest/globals";
 import { Extension } from "./extension";
 import { DisplayMode } from "./configuration";
 
