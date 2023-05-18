@@ -32,8 +32,6 @@ jobs:
 
       # Run all tests.
       - name: Test
-        # Until we resolve xpath/jsdom issues, we allow tests to fail.
-        continue-on-error: true
         run: make test
 
       # Upload coverage.
@@ -72,5 +70,4 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
-          gh release upload ${{ steps.release.outputs.tag_name }} ./release/chatgpt-diagrams-extension.zip
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ./release/chatgpt-diagrams-extension.zip

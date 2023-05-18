@@ -6,12 +6,18 @@
   "scripts": {
     "start": "webpack --mode=development --watch",
     "build": "webpack --mode=production",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:debug": "NODE_OPTIONS=--experimental-vm-modules node --inspect-brk ./node_modules/.bin/jest --runInBand --watch",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "prepare": "husky install"
   },
   "license": "MIT",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "devDependencies": {
     "@parcel/config-webextension": "^2.8.3",
     "@rollup/plugin-commonjs": "^24.0.1",
@@ -25,10 +31,13 @@
     "chrome-extension-manifest-webpack-plugin": "^1.0.8",
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.1",
+    "husky": "^8.0.3",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "jsdom": "^22.0.0",
+    "lint-staged": "^13.2.2",
     "parcel": "^2.8.3",
+    "prettier": "2.8.8",
     "rollup": "^3.20.2",
     "rollup-plugin-chrome-extension": "^3.6.12",
     "ts-jest": "^29.1.0",

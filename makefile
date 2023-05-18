@@ -9,7 +9,9 @@ build: # build the extension bundle
 
 .PHONY: test
 test: # test the code
-	npm run test
+	npm run prettier:check # check formatting
+	npm run tsc            # validate that we can compile
+	npm run test           # run the unit tests
 
 .PHONY: release
 release: # build the release package
