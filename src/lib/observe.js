@@ -8,7 +8,7 @@
 //  on an interval.
 
 //  Creates a new Mutation Observer
-const observer = new MutationObserver((mutationList, observer) => {
+const observer = new MutationObserver((mutationList) => {
   mutationList.forEach((mutation) => {
     switch (mutation.type) {
       case "childList":
@@ -26,9 +26,9 @@ const observer = new MutationObserver((mutationList, observer) => {
 });
 
 //  Get the document body, cross-browser compatible.
-var container = document.documentElement || document.body;
+const container = document.documentElement || document.body;
 
 // Starts observing the child list of the element
-observer.observe(document.body, {
+observer.observe(container, {
   childList: true,
 });

@@ -9,7 +9,8 @@ build: # build the extension bundle
 
 .PHONY: test
 test: # test the code
-	npm run prettier:check # check formatting
+	npm run prettier       # check formatting
+	npm run lint           # check lintin
 	npm run tsc            # validate that we can compile
 	npm run test           # run the unit tests
 
