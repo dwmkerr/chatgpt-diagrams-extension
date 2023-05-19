@@ -3,5 +3,3 @@ build
 coverage
 dist
 CHANGELOG.md
-makefile
-.eslintignore

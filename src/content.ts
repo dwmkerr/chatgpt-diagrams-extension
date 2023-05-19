@@ -24,7 +24,7 @@ function updateDiagrams() {
   console.log(`Found ${elements.length} unprocessed code blocks...`);
 
   // Loop through the elements and add a button next to each one
-  elements.forEach((codeElement: HTMLElement, index: Number) => {
+  elements.forEach((codeElement: HTMLElement, index: number) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
     const copyButton = chatgptElements.getCodeElementAssociatedCopyButton(
       window,
@@ -35,10 +35,18 @@ function updateDiagrams() {
       codeElement
     );
 
+    //  TODO extract to DOM function
     // Create a button element
-    const showDiagramButton = document.createElement("button");
-    showDiagramButton.innerText = "Show Diagram";
-    showDiagramButton.setAttribute("class", "flex ml-auto gap-2");
+    const buttonHtml = `
+<button class="flex ml-auto gap-2">Show Diagram</Button>
+`;
+    const showDiagramButton = new DOMParser().parseFromString(
+      buttonHtml,
+      "text/html"
+    ).body.firstElementChild;
+    if (!showDiagramButton) {
+      throw new Error(`Unable to build 'Show Diagram' button`);
+    }
 
     // Add an event listener to the button
     showDiagramButton.addEventListener("click", async () => {

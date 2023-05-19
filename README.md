@@ -79,8 +79,10 @@ The following commands can be used to help development:
 | `npm test`                 | Run unit tests, output coverage to `./coverage`.                                |
 | `npm run test:watch`       | Run unit tests, coverage only on files that test run on, watch mode.            |
 | `npm run test:debug`       | Run unit tests, with the Chrome Inspector, initially 'break', watch mode.       |
-| `npm run prettier:check`   | Check formatting of all files.                                                  |
-| `npm run prettier:watch`   | Format all files.                                                               |
+| `npm run prettier`         | Check formatting of all files.                                                  |
+| `npm run prettier:fix`     | Fix formatting of all files.                                                    |
+| `npm run lint`             | Check linting of all files.                                                     |
+| `npm run lint:fix`         | Fix linting issues in all files.                                                |
 | -------------------------- | ------------------------------------------------------------------------------- |
 | `make build`               | Create the release package.                                                     |
 | `make test`                | Validate the code, running `tsc` and unit tests.                                |
@@ -112,13 +114,13 @@ The sample page is served at `http://localhost:3000`.
 
 ### Manifest
 
-Note that the `version` field is omitted from [`manifest.json`](./src/manifest.json). When fields like `version` are omitted, rollup copies them over from the `package.json` file.
+Note that the `version` field is omitted from [`manifest.json`](./src/manifest.json). The version in the manifest file is set to the current value in the [`package.json`](package.json) file as part of the build process.
 
 ### Formatting and Code Quality Rules
 
 [Prettier](https://prettier.io/) is used for formatting. Pre-commit hooks are used to enforce code style.
 
-[ESLint]() is used for code-quality checks and rules.
+[ESLint](https://eslint.org/) is used for code-quality checks and rules.
 
 To understand why both are used, check ["Prettier vs Linters"](https://prettier.io/docs/en/comparison.html).
 
@@ -217,8 +219,10 @@ A quick-and-dirty list of improvements and next steps:
 
 - [x] build: tests
 - [x] build: coverage badge
-- [ ] build: prettier for formatting
-- [ ] build: eslint for code quality rules
+- [x] build: prettier for formatting
+- [ ] testing: `__test_files__` should be `__fixtures__`
+- [ ] build: basic test for DOM manipulation
+- [x] build: eslint for code quality rules
 - [ ] build: commitlint
 - [ ] feat: error handling
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
@@ -243,5 +247,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
-- [ ] testing: `__test_files__` should be `__fixtures__`
 - [ ] testing: better sample that doesn't have sidebar and includes more representative group of diagrams
