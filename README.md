@@ -132,9 +132,9 @@ The configuration for lint-staged is in the [`package.json`](./package.json) fil
 
 ### Testing
 
-Test Files
-JSDOM
-Jest
+[Jest](https://jestjs.io/) is used as the testing framework. ChatGPT sample pages are loaded into the environment using [js-dom](https://github.com/jsdom/jsdom) and we then verify that the ChatGPT code elements are identified and processed correctly.
+
+Check the [Developer Commands](#developer-commands) section to see the various test commands that can be run. It is possible to watch tests, run tests in the debugger, and so on.
 
 ### Debugging
 
@@ -217,13 +217,13 @@ A quick-and-dirty list of improvements and next steps:
 
 - check options UI works in extension screen as well as inline in tab
 
-- [ ] create a much more representative sample page, use the examples from the description, no sidebar, use as
+- [x] create a much more representative sample page, use the examples from the description, no sidebar, use as
       a fixture for tests, update queries to use selectors to find elements.
-- [ ] refactor: change xpath queries to query selectors, add tests, fixtures
-- [ ] build: basic test for DOM manipulation
-- [ ] testing: `__test_files__` should be `__fixtures__`
+- [x] refactor: change xpath queries to query selectors, add tests, fixtures
+- [x] build: basic test for DOM manipulation
+
 - [ ] feat: edit xpath queries via options page
-- [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
+- [x] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] consider webpack dev server to serve sample page in local dev mode
 
 - [x] build: tests
@@ -233,7 +233,7 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] build: commitlint
 - [ ] feat: error handling
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
-- [ ] docs: table of local commands
+- [x] docs: table of local commands
 - [ ] docs: table of libraries used
 - [x] build: pipeline to create package
 - [x] build: release please
@@ -253,3 +253,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
 - [ ] testing: better sample that doesn't have sidebar and includes more representative group of diagrams
+- [ ] testing: `__test_files__` should be `__fixtures__`
