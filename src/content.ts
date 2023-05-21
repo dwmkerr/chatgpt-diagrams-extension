@@ -20,20 +20,16 @@ setInterval(() => updateDiagrams(), config.scanForDiagramsIntervalMS);
 function updateDiagrams() {
   //  We search for any code blocks because at the moment ChatGPT rarely
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
-  const elements = chatgptDOM.getUnprocessedCodeBlocks(window);
-  console.log(`Found ${elements.length} unprocessed code blocks...`);
+  const codeBlocks = chatgptDOM.findCodeBlocks(window.document);
+  console.log(
+    `Found ${codeBlocks.length} TODO (PROCESSED AS WELL) unprocessed code blocks...`
+  );
 
   // Loop through the elements and add a button next to each one
-  elements.forEach((codeElement: HTMLElement, index: number) => {
+  codeBlocks.forEach((codeBlock, index: number) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
-    const copyButton = chatgptDOM.getCodeElementAssociatedCopyButton(
-      window,
-      codeElement
-    );
-    const preTag = chatgptDOM.getCodeElementAssociatedPreTag(
-      window,
-      codeElement
-    );
+    const copyButton = codeBlock.copyCodeButton;
+    const preTag = codeBlock.preElement;
 
     //  TODO extract to DOM function
     // Create a button element
@@ -51,7 +47,7 @@ function updateDiagrams() {
     // Add an event listener to the button
     showDiagramButton.addEventListener("click", async () => {
       //  Get the code from the code element.
-      const code = codeElement.innerText.trim();
+      const code = codeBlock.codeElement.innerText.trim();
 
       // Create a div element for the diagram
       const div = document.createElement("div");
@@ -79,6 +75,7 @@ function updateDiagrams() {
 
     //  Add the 'chatgpt-diagrams' class to the code block - this means we will
     //  exclude it from later searches.
-    codeElement.className += " chatgpt-diagrams";
+    //  TODO: no longer works
+    codeBlock.codeElement.className += " chatgpt-diagrams";
   });
 }
