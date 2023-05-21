@@ -1,5 +1,5 @@
 import mermaid from "mermaid";
-import * as chatgptElements from "./lib/chatgpt-elements";
+import * as chatgptDOM from "./lib/chatgpt-dom";
 
 const config = {
   scanForDiagramsIntervalMS: 1000,
@@ -20,17 +20,17 @@ setInterval(() => updateDiagrams(), config.scanForDiagramsIntervalMS);
 function updateDiagrams() {
   //  We search for any code blocks because at the moment ChatGPT rarely
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
-  const elements = chatgptElements.getUnprocessedCodeBlocks(window);
+  const elements = chatgptDOM.getUnprocessedCodeBlocks(window);
   console.log(`Found ${elements.length} unprocessed code blocks...`);
 
   // Loop through the elements and add a button next to each one
   elements.forEach((codeElement: HTMLElement, index: number) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
-    const copyButton = chatgptElements.getCodeElementAssociatedCopyButton(
+    const copyButton = chatgptDOM.getCodeElementAssociatedCopyButton(
       window,
       codeElement
     );
-    const preTag = chatgptElements.getCodeElementAssociatedPreTag(
+    const preTag = chatgptDOM.getCodeElementAssociatedPreTag(
       window,
       codeElement
     );

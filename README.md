@@ -217,11 +217,18 @@ A quick-and-dirty list of improvements and next steps:
 
 - check options UI works in extension screen as well as inline in tab
 
+- [ ] create a much more representative sample page, use the examples from the description, no sidebar, use as
+      a fixture for tests, update queries to use selectors to find elements.
+- [ ] refactor: change xpath queries to query selectors, add tests, fixtures
+- [ ] build: basic test for DOM manipulation
+- [ ] testing: `__test_files__` should be `__fixtures__`
+- [ ] feat: edit xpath queries via options page
+- [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
+- [ ] consider webpack dev server to serve sample page in local dev mode
+
 - [x] build: tests
 - [x] build: coverage badge
 - [x] build: prettier for formatting
-- [ ] testing: `__test_files__` should be `__fixtures__`
-- [ ] build: basic test for DOM manipulation
 - [x] build: eslint for code quality rules
 - [ ] build: commitlint
 - [ ] feat: error handling
@@ -232,7 +239,6 @@ A quick-and-dirty list of improvements and next steps:
 - [x] build: release please
 - [ ] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
 - [ ] feat: Create script to open a new chrome window, with the appropriate command line flags to load the dist unpacked
-- [ ] feat: edit xpath queries via options page
 - [ ] feat: counter for extension icon that shows number of diagrams processed
 - [ ] feat: sample page rendering to speed up testing and local dev
 - [ ] docs: blog post sharing extension, share online (LI, HN, Reddit)
@@ -244,7 +250,6 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
 - [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
 - [ ] improvement: icon for 'show diagram' button
-- [ ] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
 - [ ] testing: better sample that doesn't have sidebar and includes more representative group of diagrams

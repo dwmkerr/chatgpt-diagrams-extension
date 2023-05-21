@@ -5,3 +5,7 @@ dist
 CHANGELOG.md
 makefile
 .eslintignore
+
+# We need to keep the samples as close to the origin ChatGPT page as possible.
+samples/
+src/lib/__test_files__/
