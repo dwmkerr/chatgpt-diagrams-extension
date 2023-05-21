@@ -6,14 +6,18 @@ function elementTextLines(element: HTMLElement): Array<string> {
   return (element.textContent || "").split("\n");
 }
 
+//  Create a virtual console that suppresses the CSS errors we get loading the
+//  ChatGPT sample (they can be safely ignored and pollute the console output
+//  too much).
 const virtualConsole = new VirtualConsole();
 virtualConsole.sendTo(console, { omitJSDOMErrors: true });
 virtualConsole.on("jsdomError", (err) => {
   if (/Could not parse CSS stylesheet/.test(err.message)) {
     return;
   }
-  debugger;
   console.error(`Error uncaught: ${err.message.substring(0, 1024)}`);
+  //  When I'm comfortable I've caught these JDOM issues we can log the error
+  //  fully as below.
   // console.error(err);
 });
 
@@ -39,9 +43,9 @@ describe("chatgpt-dom", () => {
       //  elements found are actually correct.
       const [
         sendRequestBlock,
-        // foodDeliveryBlock,
-        // messagingBlock,
-        // retryLogicBock,
+        foodDeliveryBlock,
+        messagingBlock,
+        retryLogicBock,
       ] = codeBlocks;
 
       //  Assert we've found the 'send request' code sample elements.
@@ -54,31 +58,31 @@ describe("chatgpt-dom", () => {
       expect(sendRequestBlock.copyCodeButton.textContent).toEqual("Copy code");
 
       //  Assert we've found the 'food delivery' code sample elements.
-      // const [fdl1, fdl2] = elementTextLines(foodDeliveryBlock.codeElement);
-      // expect(fdl1).toEqual(`classDiagram`);
-      // expect(fdl2).toEqual(`    class User {`);
-      // expect(
-      //   foodDeliveryBlock.preElement.contains(foodDeliveryBlock.copyCodeButton)
-      // ).toEqual(true);
-      // expect(foodDeliveryBlock.copyCodeButton.textContent).toEqual("Copy code");
+      const [fdl1, fdl2] = elementTextLines(foodDeliveryBlock.codeElement);
+      expect(fdl1).toEqual(`classDiagram`);
+      expect(fdl2).toEqual(`    class User {`);
+      expect(
+        foodDeliveryBlock.preElement.contains(foodDeliveryBlock.copyCodeButton)
+      ).toEqual(true);
+      expect(foodDeliveryBlock.copyCodeButton.textContent).toEqual("Copy code");
 
-      //   //  Assert we've found the 'messaging architecture' code sample elements.
-      //   const [mal1, mal2] = elementTextLines(messagingBlock.codeElement);
-      //   expect(mal1).toEqual(`graph TB`);
-      //   expect(mal2).toEqual(`    subgraph User Interface`);
-      //   expect(
-      //     messagingBlock.preElement.contains(messagingBlock.copyCodeButton)
-      //   ).toEqual(true);
-      //   expect(messagingBlock.copyCodeButton.textContent).toEqual("Copy code");
+      //  Assert we've found the 'messaging architecture' code sample elements.
+      const [mal1, mal2] = elementTextLines(messagingBlock.codeElement);
+      expect(mal1).toEqual(`graph TB`);
+      expect(mal2).toEqual(`    subgraph User Interface`);
+      expect(
+        messagingBlock.preElement.contains(messagingBlock.copyCodeButton)
+      ).toEqual(true);
+      expect(messagingBlock.copyCodeButton.textContent).toEqual("Copy code");
 
-      //   //  Assert we've found the 'retry logic' code sample elements.
-      //   const [rll1, rll2] = elementTextLines(retryLogicBock.codeElement);
-      //   expect(rll1).toEqual(`sequenceDiagram`);
-      //   expect(rll2).toEqual(`    participant Producer`);
-      //   expect(
-      //     retryLogicBock.preElement.contains(retryLogicBock.copyCodeButton)
-      //   ).toEqual(true);
-      //   expect(retryLogicBock.copyCodeButton.textContent).toEqual("Copy code");
+      //  Assert we've found the 'retry logic' code sample elements.
+      const [rll1, rll2] = elementTextLines(retryLogicBock.codeElement);
+      expect(rll1).toEqual(`sequenceDiagram`);
+      expect(rll2).toEqual(`    participant Producer`);
+      expect(
+        retryLogicBock.preElement.contains(retryLogicBock.copyCodeButton)
+      ).toEqual(true);
+      expect(retryLogicBock.copyCodeButton.textContent).toEqual("Copy code");
     });
   });
 });
