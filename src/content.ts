@@ -21,12 +21,13 @@ function updateDiagrams() {
   //  We search for any code blocks because at the moment ChatGPT rarely
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
   const codeBlocks = chatgptDOM.findCodeBlocks(window.document);
+  const unprocessedCodeBlocks = codeBlocks.filter((e) => !e.isProcessed);
   console.log(
-    `Found ${codeBlocks.length} TODO (PROCESSED AS WELL) unprocessed code blocks...`
+    `Found ${unprocessedCodeBlocks.length}/${codeBlocks.length} unprocessed code blocks...`
   );
 
-  // Loop through the elements and add a button next to each one
-  codeBlocks.forEach((codeBlock, index: number) => {
+  // Loop through the unprocessed elements and add a button next to each one
+  unprocessedCodeBlocks.forEach((codeBlock, index: number) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
     const copyButton = codeBlock.copyCodeButton;
     const preTag = codeBlock.preElement;
@@ -75,7 +76,6 @@ function updateDiagrams() {
 
     //  Add the 'chatgpt-diagrams' class to the code block - this means we will
     //  exclude it from later searches.
-    //  TODO: no longer works
-    codeBlock.codeElement.className += " chatgpt-diagrams";
+    codeBlock.preElement.className += " chatgpt-diagrams";
   });
 }

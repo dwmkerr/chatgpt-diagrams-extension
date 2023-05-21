@@ -1,4 +1,7 @@
 export type ChatGPTCodeDOM = {
+  //  If 'true' indicates that we have already created the diagram.
+  isProcessed: boolean;
+
   //  The overall container 'pre' tag that holds the frame, buttons and code.
   preElement: HTMLPreElement;
 
@@ -75,6 +78,7 @@ export function findCodeBlocks(document: Document): Array<ChatGPTCodeDOM> {
     const codeElement = preTag.querySelector("code") as HTMLElement;
 
     return {
+      isProcessed: preTag.classList.contains("chatgpt-diagrams"),
       preElement: preTag,
       copyCodeButton: copyCodeButton as HTMLButtonElement,
       codeElement: codeElement as HTMLElement,
