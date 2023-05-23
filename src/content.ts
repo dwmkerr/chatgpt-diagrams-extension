@@ -47,7 +47,7 @@ function updateDiagrams() {
 
     // Add an event listener to the button
     showDiagramButton.addEventListener("click", async () => {
-      await renderDiagram(window.document, codeBlock, DisplayMode.BelowDiagram);
+      await renderDiagram(window.document, codeBlock, DisplayMode.AsTabs);
     });
 
     // Add the button to the DOM

@@ -7,6 +7,8 @@ A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 
 ![Demo Recording of ChatGPT Diagrams Extension](./docs/demo-recording.gif)
 
+Chrome Web Store: [Install ChatGPT Diagrams](https://chrome.google.com/webstore/detail/chatgpt-diagrams/gllophmfnbdpgfnbmbndlihdlcgohcpn)
+
 <!-- vim-markdown-toc GFM -->
 
 - [Quickstart](#quickstart)
@@ -216,7 +218,6 @@ https://joshisa.ninja/2021/10/22/browser-extension-with-rollup-omnibox-chatter.h
 A quick-and-dirty list of improvements and next steps:
 
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
-- [ ] bug: debugger doesn't work on chrome, seems to be a sourcemaps issue (raised as https://github.com/crxjs/chrome-extension-tools/issues/691)
 - [ ] build: commitlint
 - [ ] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
 - [ ] build: test to ensure that mermaid doesn't add error content - or if it does that we at least control it better.
@@ -231,6 +232,7 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] feat: edit xpath queries via options page
 - [ ] feat: error handling
 - [ ] feat: sample page rendering to speed up testing and local dev
+- [ ] feat: start/stop/pause buttons
 - [ ] improvement: icon for 'show diagram' button
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
@@ -238,6 +240,7 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
 - [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
 - [ ] testing: `__test_files__` should be `__fixtures__`
+- [x] bug: debugger doesn't work on chrome, seems to be a sourcemaps issue (raised as https://github.com/crxjs/chrome-extension-tools/issues/691)
 - [x] build: basic test for DOM manipulation
 - [x] build: coverage badge
 - [x] build: eslint for code quality rules

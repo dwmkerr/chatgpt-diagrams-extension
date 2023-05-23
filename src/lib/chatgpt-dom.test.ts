@@ -113,7 +113,7 @@ describe("chatgpt-dom", () => {
       delete window.SVGElement.prototype.getBBox;
     });
 
-    test("can render simple graph below code", async () => {
+    test("can render simple graph in 'BelowDiagram' mode", async () => {
       const chatHTML = `
 <div id="test-sample-1">
     <p>Here's a simple diagram:</p>
@@ -171,9 +171,80 @@ describe("chatgpt-dom", () => {
       expect(parentDiv.id).toEqual("test-sample-1");
     });
 
+    test("can render simple graph in 'AsTab' mode", async () => {
+      //  Note that ids in elements are only used to make grabbing them in tests
+      //  easier.
+      const chatHTML = `
+<pre id="test-sample-2" class=" chatgpt-diagrams">
+    <div id="test-tab-container" class="bg-black rounded-md mb-4">
+        <div class="flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md">
+            <span>mermaid</span>
+            <button class="flex ml-auto gap-2">Show Diagram</button>
+            <button class="flex ml-auto gap-2">Copy code</button>
+        </div>
+        <div class="p-4 overflow-y-auto">
+            <code class="!whitespace-pre hljs language-mermaid">
+                graph TD
+                subgraph Extension
+                    BackgroundScript((Background&lt;br&gt;Script))
+                    ContentScript((Content&lt;br&gt;Script))
+                    BackgroundScript--&gt;ContentScript: Send message
+                    ContentScript--&gt;BackgroundScript: Send message
+                end
+                subgraph Chrome
+                    Tab(Tab)
+                    Tab--&gt;ContentScript
+                end
+            </code>
+        </div>
+        <!-- A new tab will be created here... -->
+    </div>
+</pre>
+`;
+      //  Get the code block, render the diagram.
+      const dom = new JSDOM(chatHTML, { virtualConsole });
+      const codeBlocks = findCodeBlocks(dom.window.document);
+      const diagramDiv = await renderDiagram(
+        dom.window.document,
+        codeBlocks[0],
+        DisplayMode.AsTabs
+      );
+
+      //  The code block container should now have three divs - a toolbar with
+      //  two tabs.
+      const testDiv = dom.window.document.querySelector(
+        "#test-tab-container"
+      ) as HTMLDivElement;
+      expect(testDiv.children.length).toEqual(3);
+      expect(testDiv.children[0]).toMatchObject({ nodeName: "DIV" });
+      expect(testDiv.children[1]).toMatchObject({ nodeName: "DIV" });
+      expect(testDiv.children[2]).toMatchObject({
+        nodeName: "DIV",
+        // classList: expect.arrayContaining(["p-4", "overflow-y-auto"]),
+      });
+
+      //  The code div should be hidden.
+      const codeDivStyle = dom.window.getComputedStyle(testDiv.children[1]);
+      expect(codeDivStyle.display).toEqual("block");
+
+      //  The third div should be the newly created diagram container.
+      expect(testDiv.children[3]).toBe(diagramDiv);
+
+      //  The diagram div should not be null, and should contain an SVG with
+      //  the expected classes and id.
+      const mermaidSvg = diagramDiv.firstChild as SVGElement;
+      const parentDiv = diagramDiv.parentNode as HTMLDivElement;
+      expect(diagramDiv).not.toBeFalsy();
+      expect(diagramDiv.id).toEqual("chatgpt-diagram-container-0");
+      //  Mermaid adds our diagram id to its generated SVG id.
+      //  The actual id is just our id with a 'd' (for 'diagram') in front of it.
+      expect(mermaidSvg.id).toContain("chatgpt-diagram-0");
+      expect(parentDiv.id).toEqual("test-sample-1");
+    });
+
     test("does not pollute the global docucment body when rendering fails", async () => {
       const chatHTML = `
-<div id="test-sample-2">
+<div id="test-sample-3">
     <p>Here's an invalid diagram:</p>
     <pre>
         <div>
@@ -211,7 +282,7 @@ describe("chatgpt-dom", () => {
 
     xtest("shows mermaidjs error content in the diagram container when rendering fails", async () => {
       const chatHTML = `
-<div id="test-sample-2">
+<div id="test-sample-4">
     <p>Here's an invalid diagram:</p>
     <pre>
         <div>

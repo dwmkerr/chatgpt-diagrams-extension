@@ -100,16 +100,31 @@ export async function renderDiagram(
   codeBlock: ChatGPTCodeDOM,
   displayMode: DisplayMode
 ): Promise<HTMLDivElement> {
-  if (displayMode === DisplayMode.AsTabs) {
-    throw new Error("Tabs mode is not supported");
-  }
-
   //  Create the container element first. If we do not do this and provide a
   //  container to mermaid, then mermaid will pollute the global document object
   //  with error content at the end of the DOM.
   const diagramContainer = document.createElement("div");
   diagramContainer.id = `chatgpt-diagram-container-${codeBlock.index}`;
-  codeBlock.preElement.after(diagramContainer);
+
+  //  TODO: really we should move this to _after_ the try block, but
+  //  need to test in the browser and with unit tests first.
+
+  switch (displayMode) {
+    case DisplayMode.BelowDiagram:
+      //  Put the digram after the 'pre' element.
+      codeBlock.preElement.after(diagramContainer);
+      break;
+
+    case DisplayMode.AsTabs:
+      //  Set the style of the container to match the code block, then
+      //  put into the code div.
+      diagramContainer.classList.add("p-4", "overflow-y-auto");
+      (<HTMLElement>codeBlock.codeElement.parentNode).after(diagramContainer);
+      break;
+
+    default:
+      throw new Error(`Unknown diagram display mode '${displayMode}`);
+  }
 
   try {
     //  Render the diagram using the Mermaid.js library, then insert into our
