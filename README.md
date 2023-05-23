@@ -215,45 +215,39 @@ https://joshisa.ninja/2021/10/22/browser-extension-with-rollup-omnibox-chatter.h
 
 A quick-and-dirty list of improvements and next steps:
 
-- check options UI works in extension screen as well as inline in tab
-
-- [x] create a much more representative sample page, use the examples from the description, no sidebar, use as
-      a fixture for tests, update queries to use selectors to find elements.
-- [x] refactor: change xpath queries to query selectors, add tests, fixtures
-- [x] build: basic test for DOM manipulation
-
-- [x] testing: better sample that doesn't have sidebar and includes more representative group of diagrams
-- [x] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
-- [ ] consider webpack dev server to serve sample page in local dev mode
-
-- [ ] build: test to ensure that mermaid doesn't add error content - or if it does that we at least control it better.
-
-- [ ] feat: edit xpath queries via options page
-
-- [x] build: tests
-- [x] build: coverage badge
-- [x] build: prettier for formatting
-- [x] build: eslint for code quality rules
-- [ ] build: commitlint
-- [ ] feat: error handling
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
-- [x] docs: table of local commands
-- [ ] docs: table of libraries used
-- [x] build: pipeline to create package
-- [x] build: release please
-- [ ] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
-- [ ] feat: Create script to open a new chrome window, with the appropriate command line flags to load the dist unpacked
-- [ ] feat: counter for extension icon that shows number of diagrams processed
-- [ ] feat: sample page rendering to speed up testing and local dev
-- [ ] docs: blog post sharing extension, share online (LI, HN, Reddit)
-- [x] docs: better icon - just a simple 50/50 split of the two logos down the middle, or diagonal
 - [ ] bug: debugger doesn't work on chrome, seems to be a sourcemaps issue (raised as https://github.com/crxjs/chrome-extension-tools/issues/691)
-- [ ] feat: Lightbox for diagrams
+- [ ] build: commitlint
+- [ ] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
+- [ ] build: test to ensure that mermaid doesn't add error content - or if it does that we at least control it better.
+- [ ] check options UI works in extension screen as well as inline in tab
+- [ ] consider webpack dev server to serve sample page in local dev mode
+- [ ] docs: blog post sharing extension, share online (LI, HN, Reddit)
+- [ ] docs: table of libraries used
 - [ ] feat: 'copy' button for diagrams
-- [ ] improvement: use the mutation observer (see ./src/observe.js) to watch for new code samples, rather than scanning the DOM on a timer
-- [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
-- [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
+- [ ] feat: Create script to open a new chrome window, with the appropriate command line flags to load the dist unpacked
+- [ ] feat: Lightbox for diagrams
+- [ ] feat: counter for extension icon that shows number of diagrams processed
+- [ ] feat: edit xpath queries via options page
+- [ ] feat: error handling
+- [ ] feat: sample page rendering to speed up testing and local dev
 - [ ] improvement: icon for 'show diagram' button
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
+- [ ] improvement: use the mutation observer (see ./src/observe.js) to watch for new code samples, rather than scanning the DOM on a timer
+- [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
+- [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
 - [ ] testing: `__test_files__` should be `__fixtures__`
+- [x] build: basic test for DOM manipulation
+- [x] build: coverage badge
+- [x] build: eslint for code quality rules
+- [x] build: pipeline to create package
+- [x] build: prettier for formatting
+- [x] build: release please
+- [x] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
+- [x] build: tests
+- [x] create a much more representative sample page, use the examples from the description, no sidebar, use as a fixture for tests, update queries to use selectors to find elements.
+- [x] docs: better icon - just a simple 50/50 split of the two logos down the middle, or diagonal
+- [x] docs: table of local commands
+- [x] refactor: change xpath queries to query selectors, add tests, fixtures
+- [x] testing: better sample that doesn't have sidebar and includes more representative group of diagrams

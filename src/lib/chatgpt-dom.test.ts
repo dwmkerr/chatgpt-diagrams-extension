@@ -1,4 +1,11 @@
-import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  test,
+  xtest,
+} from "@jest/globals";
 import { findCodeBlocks, renderDiagram } from "./chatgpt-dom";
 import { JSDOM, VirtualConsole } from "jsdom";
 import { DisplayMode } from "./configuration";
@@ -157,9 +164,88 @@ describe("chatgpt-dom", () => {
       const mermaidSvg = diagramDiv.firstChild as SVGElement;
       const parentDiv = diagramDiv.parentNode as HTMLDivElement;
       expect(diagramDiv).not.toBeFalsy();
-      expect(diagramDiv.id).toEqual("chatgpt-diagram-container-0"); // set by us
-      expect(mermaidSvg.id).toEqual("mermaid-0"); // set by mermaid.js
+      expect(diagramDiv.id).toEqual("chatgpt-diagram-container-0");
+      //  Mermaid adds our diagram id to its generated SVG id.
+      //  The actual id is just our id with a 'd' (for 'diagram') in front of it.
+      expect(mermaidSvg.id).toContain("chatgpt-diagram-0");
       expect(parentDiv.id).toEqual("test-sample-1");
+    });
+
+    test("does not pollute the global docucment body when rendering fails", async () => {
+      const chatHTML = `
+<div id="test-sample-2">
+    <p>Here's an invalid diagram:</p>
+    <pre>
+        <div>
+            <div>
+                <span>mermaid</span>
+                <button>Show Diagram</button>
+                <button>Copy code</button>
+            </div>
+            <div>
+                <code>
+                  type Vector2D = {
+                    x: number;
+                    y: number;
+                  };
+                </code>
+            </div>
+        </div>
+    </pre>
+    <!-- we will validate that the container div and diagram is created here. -->
+    <p>This flowchart illustrates a basic web request.</p>
+</div>
+`;
+      //  Ensure the global document has not had error content added by mermaid,
+      //  which is its default behaviour.
+      expect(global.document.body.innerHTML).toEqual("");
+      const dom = new JSDOM(chatHTML, { virtualConsole });
+      const codeBlocks = findCodeBlocks(dom.window.document);
+      await renderDiagram(
+        dom.window.document,
+        codeBlocks[0],
+        DisplayMode.BelowDiagram
+      );
+      expect(global.document.body.innerHTML).toEqual("");
+    });
+
+    xtest("shows mermaidjs error content in the diagram container when rendering fails", async () => {
+      const chatHTML = `
+<div id="test-sample-2">
+    <p>Here's an invalid diagram:</p>
+    <pre>
+        <div>
+            <div>
+                <span>mermaid</span>
+                <button>Show Diagram</button>
+                <button>Copy code</button>
+            </div>
+            <div>
+                <code>
+                  type Vector2D = {
+                    x: number;
+                    y: number;
+                  };
+                </code>
+            </div>
+        </div>
+    </pre>
+    <!-- we will validate that the container div and diagram is created here. -->
+    <p>This flowchart illustrates a basic web request.</p>
+</div>
+`;
+      const dom = new JSDOM(chatHTML, { virtualConsole });
+      const codeBlocks = findCodeBlocks(dom.window.document);
+      const containerDiv = await renderDiagram(
+        dom.window.document,
+        codeBlocks[0],
+        DisplayMode.BelowDiagram
+      );
+
+      //  Check for the mermaid.js error output in the container.
+      expect(containerDiv.querySelector(".error-text")?.textContent).toMatch(
+        /Syntax error in text/
+      );
     });
   });
 });
