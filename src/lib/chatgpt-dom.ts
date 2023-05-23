@@ -104,21 +104,28 @@ export async function renderDiagram(
     throw new Error("Tabs mode is not supported");
   }
 
+  //  Create the container element first. If we do not do this and provide a
+  //  container to mermaid, then mermaid will pollute the global document object
+  //  with error content at the end of the DOM.
+  const diagramContainer = document.createElement("div");
+  diagramContainer.id = `chatgpt-diagram-container-${codeBlock.index}`;
+  codeBlock.preElement.after(diagramContainer);
+
   try {
-    // Render the diagram using the Mermaid.js library
+    //  Render the diagram using the Mermaid.js library, then insert into our
+    //  container.
     const { svg } = await mermaid.render(
-      "mermaid-" + codeBlock.index,
-      codeBlock.code
+      `chatgpt-diagram-${codeBlock.index}`,
+      codeBlock.code,
+      diagramContainer
     );
-    //  We want to position the diagram after the <pre> tag that contains the
-    //  code block.
-    const div = document.createElement("div");
-    div.id = `chatgpt-diagram-container-${codeBlock.index}`;
-    div.innerHTML = svg;
-    codeBlock.preElement.after(div);
-    return div;
+    diagramContainer.innerHTML = svg;
   } catch (err) {
+    //  In the future we will return an error, but for now we will let the
+    //  mermaid error UI content sit in the container, as this is fairly clear
+    //  for the user. Later we can add more of our own branding and content.
     console.error("an error occurred rendering the diagram", err);
-    throw err;
   }
+
+  return diagramContainer;
 }
