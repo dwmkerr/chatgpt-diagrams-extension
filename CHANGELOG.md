@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.5...v0.0.6) (2023-05-23)
+
+
+### Bug Fixes
+
+* correctly capture mermaidjs errors ([#19](https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/19)) ([5efc5f6](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/5efc5f67c9923b6c81e8f12cce39f57ec75927f5))
+
 ## [0.0.5](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.4...v0.0.5) (2023-05-15)
 
 

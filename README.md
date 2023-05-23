@@ -15,6 +15,7 @@ Chrome Web Store: [Install ChatGPT Diagrams](https://chrome.google.com/webstore/
 - [Developer Guide](#developer-guide)
   - [Developer Commands](#developer-commands)
   - [Code Structure](#code-structure)
+  - [Mermaid.js Hacks and Notes](#mermaidjs-hacks-and-notes)
   - [Running the Sample Pages](#running-the-sample-pages)
   - [Manifest](#manifest)
   - [Formatting and Code Quality Rules](#formatting-and-code-quality-rules)
@@ -103,6 +104,14 @@ options.ts     # the logic for the options page
 setup-jest.js  # utility to configure testing environment
 lib/           # bulk of the logic for the extension
 ```
+
+### Mermaid.js Hacks and Notes
+
+When Mermaid.js encounters an error, it attempts to render error content visually in the DOM. It is possible to provide an HTML Element that will be the container for this output. However, it does not appear to be possible to set this container to an element created with the JSDOM virtual DOM.
+
+This means that when Mermaid.js encounters rendering errors, we copy the raw HTML of the error content it writes from the global document object, and then move it into our own container - this works both in the browser and for unit tests.
+
+You can see this approach by searching for the text 'Hack' in the `./src/lib/chatgpt-dom.ts` code. There may be a better way but this managed to solve some issues like https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/20 and others, quickly and without too much complexity in the tests.
 
 ### Running the Sample Pages
 
