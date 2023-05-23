@@ -222,9 +222,13 @@ A quick-and-dirty list of improvements and next steps:
 - [x] refactor: change xpath queries to query selectors, add tests, fixtures
 - [x] build: basic test for DOM manipulation
 
-- [ ] feat: edit xpath queries via options page
+- [x] testing: better sample that doesn't have sidebar and includes more representative group of diagrams
 - [x] build: resolve test issues https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/6
 - [ ] consider webpack dev server to serve sample page in local dev mode
+
+- [ ] build: test to ensure that mermaid doesn't add error content - or if it does that we at least control it better.
+
+- [ ] feat: edit xpath queries via options page
 
 - [x] build: tests
 - [x] build: coverage badge
@@ -252,5 +256,4 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] improvement: icon for 'show diagram' button
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
 - [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
-- [ ] testing: better sample that doesn't have sidebar and includes more representative group of diagrams
 - [ ] testing: `__test_files__` should be `__fixtures__`

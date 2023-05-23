@@ -1,5 +1,6 @@
 import mermaid from "mermaid";
-import * as chatgptDOM from "./lib/chatgpt-dom";
+import { findCodeBlocks, renderDiagram } from "./lib/chatgpt-dom";
+import { DisplayMode } from "./lib/configuration";
 
 const config = {
   scanForDiagramsIntervalMS: 1000,
@@ -20,17 +21,16 @@ setInterval(() => updateDiagrams(), config.scanForDiagramsIntervalMS);
 function updateDiagrams() {
   //  We search for any code blocks because at the moment ChatGPT rarely
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
-  const codeBlocks = chatgptDOM.findCodeBlocks(window.document);
+  const codeBlocks = findCodeBlocks(window.document);
   const unprocessedCodeBlocks = codeBlocks.filter((e) => !e.isProcessed);
   console.log(
     `Found ${unprocessedCodeBlocks.length}/${codeBlocks.length} unprocessed code blocks...`
   );
 
   // Loop through the unprocessed elements and add a button next to each one
-  unprocessedCodeBlocks.forEach((codeBlock, index: number) => {
+  unprocessedCodeBlocks.forEach((codeBlock) => {
     //  Get the parent 'pre' tag, as well as the 'copy' button.
     const copyButton = codeBlock.copyCodeButton;
-    const preTag = codeBlock.preElement;
 
     //  TODO extract to DOM function
     // Create a button element
@@ -47,28 +47,7 @@ function updateDiagrams() {
 
     // Add an event listener to the button
     showDiagramButton.addEventListener("click", async () => {
-      //  Get the code from the code element.
-      const code = codeBlock.codeElement.innerText.trim();
-
-      // Create a div element for the diagram
-      const div = document.createElement("div");
-      // div.setAttribute('class', 'mermaid');
-      // div.setAttribute('data-processed', 'false');
-
-      // Render the diagram using the Mermaid.js library
-      try {
-        const { svg } = await mermaid.render("mermaid-" + index, code);
-        div.innerHTML = svg;
-        //  We want to position the diagram after the <pre> tag that contains the
-        //  code block.
-
-        // Replace the element with the div
-        preTag.after(div);
-        // div.setAttribute('data-processed', 'true');
-      } catch (err) {
-        console.error("an error occurred rendering the diagram", err);
-        div.remove();
-      }
+      await renderDiagram(window.document, codeBlock, DisplayMode.BelowDiagram);
     });
 
     // Add the button to the DOM
