@@ -169,6 +169,13 @@ describe("chatgpt-dom", () => {
       //  The actual id is just our id with a 'd' (for 'diagram') in front of it.
       expect(mermaidSvg.id).toContain("chatgpt-diagram-0");
       expect(parentDiv.id).toEqual("test-sample-1");
+
+      //  We don't need to go overboard, but check that the SVG at least
+      //  contains two node labels as expected (otherwise an empty SVG would
+      //  pass the test, fixes GH issue #22).
+      const [label1, label2] = mermaidSvg.querySelectorAll(".nodeLabel");
+      expect(label1.textContent).toEqual("Browser");
+      expect(label2.textContent).toEqual("Send HTTP Request");
     });
 
     test("does not pollute the global docucment body when rendering fails", async () => {
