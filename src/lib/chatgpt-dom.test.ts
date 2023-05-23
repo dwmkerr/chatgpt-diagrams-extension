@@ -1,11 +1,4 @@
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  test,
-  xtest,
-} from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 import { findCodeBlocks, renderDiagram } from "./chatgpt-dom";
 import { JSDOM, VirtualConsole } from "jsdom";
 import { DisplayMode } from "./configuration";
@@ -98,7 +91,6 @@ describe("chatgpt-dom", () => {
     beforeEach(() => {
       //  It seems that jsdom doesn't handle the SVGElement 'getBBox' function.
       //  Return a box of any old size and the tests will function.
-
       //  @ts-expect-error - TS knows SVGElement doesn't have getBBox
       window.SVGElement.prototype.getBBox = () => ({
         x: 0,
@@ -115,27 +107,27 @@ describe("chatgpt-dom", () => {
 
     test("can render simple graph below code", async () => {
       const chatHTML = `
-<div id="test-sample-1">
-    <p>Here's a simple diagram:</p>
-    <pre>
-        <div>
+    <div id="test-sample-1">
+        <p>Here's a simple diagram:</p>
+        <pre>
             <div>
-                <span>mermaid</span>
-                <button>Show Diagram</button>
-                <button>Copy code</button>
+                <div>
+                    <span>mermaid</span>
+                    <button>Show Diagram</button>
+                    <button>Copy code</button>
+                </div>
+                <div>
+                    <code>graph LR
+                        A[Browser] --&gt; B{Send HTTP Request}
+                    </code>
+                </div>
             </div>
-            <div>
-                <code>graph LR
-                    A[Browser] --&gt; B{Send HTTP Request}
-                </code>
-            </div>
-        </div>
-    </pre>
-    <!-- we will validate that the container div and diagram is created here. -->
-    <p>This flowchart illustrates a basic web request.</p>
-</div>
+        </pre>
+        <!-- we will validate that the container div and diagram is created here. -->
+        <p>This flowchart illustrates a basic web request.</p>
+    </div>
 `;
-      //  Get the code block, render the diagram.
+      //  Setup the dom, get the code block, render the diagram.
       const dom = new JSDOM(chatHTML, { virtualConsole });
       const codeBlocks = findCodeBlocks(dom.window.document);
       const diagramDiv = await renderDiagram(
@@ -216,7 +208,7 @@ describe("chatgpt-dom", () => {
       expect(global.document.body.innerHTML).toEqual("");
     });
 
-    xtest("shows mermaidjs error content in the diagram container when rendering fails", async () => {
+    test("shows mermaidjs error content in the diagram container when rendering fails", async () => {
       const chatHTML = `
 <div id="test-sample-2">
     <p>Here's an invalid diagram:</p>
@@ -241,6 +233,7 @@ describe("chatgpt-dom", () => {
     <p>This flowchart illustrates a basic web request.</p>
 </div>
 `;
+      //  Setup the dom, get the code block, render the diagram.
       const dom = new JSDOM(chatHTML, { virtualConsole });
       const codeBlocks = findCodeBlocks(dom.window.document);
       const containerDiv = await renderDiagram(
