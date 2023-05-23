@@ -114,15 +114,14 @@ export async function renderDiagram(
   try {
     //  Render the diagram using the Mermaid.js library, then insert into our
     //  container.
+    //  Hack Part 1: Rather than giving mermaid our container element as the
+    //  third parameter, we have to let it put error content in the document
+    // body, then remove it ourselves. This is because I cannot get it to
+    //  sucessfully use the JSDOM mocked document in this case - even through
+    //  when _successfully_ rendering diagrams it works.
     const { svg } = await mermaid.render(
       `chatgpt-diagram-${codeBlock.index}`,
-      codeBlock.code //,
-      //  Hack Part 1: Rather than giving mermaid our container element, we
-      //  have to let it put error content in the document body, then remove it
-      //  ourselves. This is because I cannot get it to sucessfully use the
-      //  JSDOM mocked document in this case - even through when _successfully_
-      //  rendering diagrams it works.
-      //  diagramContainer
+      codeBlock.code
     );
     diagramContainer.innerHTML = svg;
   } catch (err) {
