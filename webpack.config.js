@@ -3,11 +3,19 @@ import path from "path";
 import CopyPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
-function transformManifest(buffer) {
+function transformManifest(buffer, mode) {
   //  Load the manifest object, update the versions, from the package.json,
   //  send back to webpack.
   const pkg = JSON.parse(fs.readFileSync("./package.json"));
   const manifest = JSON.parse(buffer.toString());
+
+  //  If we are in development mode, update the name of the extension to make
+  //  it more obvious when we are debugging.
+  if (mode === "development") {
+    //  TODO; add '10s ago' or whatever so that we can see how recent,
+    manifest.name = `${manifest.name} - Local`;
+  }
+
   return JSON.stringify({ ...manifest, version: pkg.version }, null, 2);
 }
 
@@ -65,7 +73,7 @@ export default (_, argv) => ({
           from: "src/manifest.json",
           to: "manifest.json",
           transform(content) {
-            return transformManifest(content);
+            return transformManifest(content, argv.mode);
           },
         },
       ],

@@ -5,8 +5,25 @@
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 export default {
-  //  We're using ts-jest for typescript support.
+  //  We're using ts-jest for typescript support. Treat *.ts files as ESM
+  //  modules so that we can use 'import'.
+  //  See:
+  //    https://kulshekhar.github.io/ts-jest/docs/next/guides/esm-support/
   preset: "ts-jest",
+  extensionsToTreatAsEsm: [".ts"],
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+  },
+  transform: {
+    // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`
+    // '^.+\\.m?[tj]sx?$' to process js/ts/mjs/mts with `ts-jest`
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        useESM: true,
+      },
+    ],
+  },
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
