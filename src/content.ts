@@ -1,8 +1,6 @@
 import mermaid from "mermaid";
-// import { findCodeBlocks, renderDiagram } from "./lib/chatgpt-dom";
 import { findCodeBlocks } from "./lib/chatgpt-dom";
 import { prepareCodeBlock } from "./lib/prepare-code-block";
-//  import { DisplayMode } from "./lib/configuration";
 
 const config = {
   scanForDiagramsIntervalMS: 1000,
@@ -29,15 +27,9 @@ function updateDiagrams() {
     `Found ${unprocessedCodeBlocks.length}/${codeBlocks.length} unprocessed code blocks...`
   );
 
-  // Loop through the unprocessed elements and add a button next to each one
+  //  Loop through each unprocessed code block, then prepare each one, adding
+  //  the diagram buttons and DOM elements.
   unprocessedCodeBlocks.forEach((codeBlock) => {
-    // const { showDiagramButton } = prepareCodeBlock(window.document, codeBlock);
     prepareCodeBlock(window.document, codeBlock);
-
-    //  TOOD: also will be extracted into the prepare function
-    // Add an event listener to the button
-    // showDiagramButton.addEventListener("click", async () => {
-    //   await renderDiagram(window.document, codeBlock, DisplayMode.AsTabs);
-    // });
   });
 }
