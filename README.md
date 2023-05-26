@@ -228,12 +228,9 @@ A quick-and-dirty list of improvements and next steps:
 
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
 - [ ] build: commitlint
-- [ ] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
-- [ ] build: test to ensure that mermaid doesn't add error content - or if it does that we at least control it better.
 - [ ] check options UI works in extension screen as well as inline in tab
 - [ ] consider webpack dev server to serve sample page in local dev mode
 - [ ] docs: blog post sharing extension, share online (LI, HN, Reddit)
-- [ ] docs: table of libraries used
 - [ ] feat: 'copy' button for diagrams
 - [ ] feat: Create script to open a new chrome window, with the appropriate command line flags to load the dist unpacked
 - [ ] feat: Lightbox for diagrams
@@ -244,11 +241,13 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] feat: start/stop/pause buttons
 - [ ] improvement: icon for 'show diagram' button
 - [ ] improvement: option in the menu screen to 'toggle' diagram, meaning that instead of the code we show the diagram only (makes it easier to take screenshots too).
-- [ ] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
 - [ ] improvement: use the mutation observer (see ./src/observe.js) to watch for new code samples, rather than scanning the DOM on a timer
 - [ ] refactor: MD5 diagram text, use as a key for diagrams in a background page so that we don't recreate each time
 - [ ] refactor: move rendering logic to background page (so error content is hidden in tabs)
 - [ ] testing: `__test_files__` should be `__fixtures__`
+- [x] build: test to ensure that mermaid doesn't add error content - or if it does that we at least control it better.
+- [x] improvement: render DOM using this method: https://crxjs.dev/vite-plugin/getting-started/vanilla-js/content-script-hmr#vite-hmr-for-javascript
+- [x] build: slow bundling, debugging fails: https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/10
 - [x] bug: debugger doesn't work on chrome, seems to be a sourcemaps issue (raised as https://github.com/crxjs/chrome-extension-tools/issues/691)
 - [x] build: basic test for DOM manipulation
 - [x] build: coverage badge

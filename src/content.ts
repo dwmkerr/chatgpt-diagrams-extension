@@ -1,6 +1,8 @@
 import mermaid from "mermaid";
-import { findCodeBlocks, renderDiagram } from "./lib/chatgpt-dom";
-import { DisplayMode } from "./lib/configuration";
+// import { findCodeBlocks, renderDiagram } from "./lib/chatgpt-dom";
+import { findCodeBlocks } from "./lib/chatgpt-dom";
+import { prepareCodeBlock } from "./lib/prepare-code-block";
+//  import { DisplayMode } from "./lib/configuration";
 
 const config = {
   scanForDiagramsIntervalMS: 1000,
@@ -29,32 +31,13 @@ function updateDiagrams() {
 
   // Loop through the unprocessed elements and add a button next to each one
   unprocessedCodeBlocks.forEach((codeBlock) => {
-    //  Get the parent 'pre' tag, as well as the 'copy' button.
-    const copyButton = codeBlock.copyCodeButton;
+    // const { showDiagramButton } = prepareCodeBlock(window.document, codeBlock);
+    prepareCodeBlock(window.document, codeBlock);
 
-    //  TODO extract to DOM function
-    // Create a button element
-    const buttonHtml = `
-<button class="flex ml-auto gap-2">Show Diagram</Button>
-`;
-    const showDiagramButton = new DOMParser().parseFromString(
-      buttonHtml,
-      "text/html"
-    ).body.firstElementChild;
-    if (!showDiagramButton) {
-      throw new Error(`Unable to build 'Show Diagram' button`);
-    }
-
+    //  TOOD: also will be extracted into the prepare function
     // Add an event listener to the button
-    showDiagramButton.addEventListener("click", async () => {
-      await renderDiagram(window.document, codeBlock, DisplayMode.AsTabs);
-    });
-
-    // Add the button to the DOM
-    copyButton.before(showDiagramButton);
-
-    //  Add the 'chatgpt-diagrams' class to the code block - this means we will
-    //  exclude it from later searches.
-    codeBlock.preElement.className += " chatgpt-diagrams";
+    // showDiagramButton.addEventListener("click", async () => {
+    //   await renderDiagram(window.document, codeBlock, DisplayMode.AsTabs);
+    // });
   });
 }

@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": ["dom", "es2019"],
+    "lib": ["dom", "dom.iterable", "es2019"],
     "module": "es6",
     "moduleResolution": "node",
     "noImplicitReturns": true,

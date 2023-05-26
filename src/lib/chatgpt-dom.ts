@@ -1,6 +1,3 @@
-import mermaid from "mermaid";
-import { DisplayMode } from "./configuration";
-
 export type ChatGPTCodeDOM = {
   //  If 'true' indicates that we have already created the diagram.
   isProcessed: boolean;
@@ -19,8 +16,8 @@ export type ChatGPTCodeDOM = {
   //  and insert adjacent buttons.
   copyCodeButton: HTMLButtonElement;
 
-  //  The 'code' element that contains the mermaid code.
-  codeElement: HTMLElement;
+  //  The div that contains the 'code' element with the actual code.
+  codeContainerElement: HTMLDivElement;
 };
 
 /**
@@ -69,12 +66,12 @@ export function findCodeBlocks(document: Document): Array<ChatGPTCodeDOM> {
     const codeElement = preTag.querySelector("code") as HTMLElement;
 
     return {
-      isProcessed: preTag.classList.contains("chatgpt-diagrams"),
+      isProcessed: preTag.classList.contains("chatgpt-diagrams-processed"),
       index,
       code: codeElement.textContent?.trim() || "",
       preElement: preTag,
       copyCodeButton: copyCodeButton as HTMLButtonElement,
-      codeElement,
+      codeContainerElement: codeElement.parentNode as HTMLDivElement,
     };
   };
 
@@ -93,69 +90,4 @@ export function findCodeBlocks(document: Document): Array<ChatGPTCodeDOM> {
   )
     .map(preToDOM)
     .filter((element) => element); // filter out null elements
-}
-
-export async function renderDiagram(
-  document: Document,
-  codeBlock: ChatGPTCodeDOM,
-  displayMode: DisplayMode
-): Promise<HTMLDivElement> {
-  //  Create the container element first. If we do not do this and provide a
-  //  container to mermaid, then mermaid will pollute the global document object
-  //  with error content at the end of the DOM.
-  const diagramContainer = document.createElement("div");
-  diagramContainer.id = `chatgpt-diagram-container-${codeBlock.index}`;
-
-  //  TODO: really we should move this to _after_ the try block, but
-  //  need to test in the browser and with unit tests first.
-
-  switch (displayMode) {
-    case DisplayMode.BelowDiagram:
-      //  Put the digram after the 'pre' element.
-      codeBlock.preElement.after(diagramContainer);
-      break;
-
-    case DisplayMode.AsTabs:
-      //  Set the style of the container to match the code block, then
-      //  put into the code div.
-      diagramContainer.classList.add("p-4", "overflow-y-auto");
-      (<HTMLElement>codeBlock.codeElement.parentNode).after(diagramContainer);
-      break;
-
-    default:
-      throw new Error(`Unknown diagram display mode '${displayMode}`);
-  }
-
-  try {
-    //  Render the diagram using the Mermaid.js library, then insert into our
-    //  container.
-    //  Hack Part 1: Rather than giving mermaid our container element as the
-    //  third parameter, we have to let it put error content in the document
-    // body, then remove it ourselves. This is because I cannot get it to
-    //  sucessfully use the JSDOM mocked document in this case - even through
-    //  when _successfully_ rendering diagrams it works.
-    const { svg } = await mermaid.render(
-      `chatgpt-diagram-${codeBlock.index}`,
-      codeBlock.code
-    );
-    diagramContainer.innerHTML = svg;
-  } catch (err) {
-    //  In the future we will return an error, but for now we will let the
-    //  mermaid error UI content sit in the container, as this is fairly clear
-    //  for the user. Later we can add more of our own branding and content.
-    console.warn("an error occurred rendering the diagram", err);
-
-    //  Hack Part 2: grab the error content added to the global document, move it
-    //  into our container. Note the extra 'd' in the id below.
-    const errorContent = global.document.body.querySelector(
-      `#dchatgpt-diagram-${codeBlock.index}`
-    );
-    diagramContainer.insertAdjacentHTML(
-      "beforeend",
-      errorContent?.outerHTML || ""
-    );
-    errorContent?.remove();
-  }
-
-  return diagramContainer;
 }
