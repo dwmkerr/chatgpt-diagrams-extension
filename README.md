@@ -29,6 +29,7 @@ Chrome Web Store: [Install ChatGPT Diagrams](https://chrome.google.com/webstore/
   - [Extension Screenshots](#extension-screenshots)
 - [Useful Resources](#useful-resources)
 - [Task List](#task-list)
+  - [Options Page](#options-page)
 
 <!-- vim-markdown-toc -->
 
@@ -227,8 +228,6 @@ https://joshisa.ninja/2021/10/22/browser-extension-with-rollup-omnibox-chatter.h
 A quick-and-dirty list of improvements and next steps:
 
 - [ ] bug: button is inserted multiple times while chatgpt is writing (add the class to the dom element _before_ start processing? note that the code language text (e.g. 'mermaid') is overwritten
-- [ ] build: commitlint
-- [ ] check options UI works in extension screen as well as inline in tab
 - [ ] consider webpack dev server to serve sample page in local dev mode
 - [ ] docs: blog post sharing extension, share online (LI, HN, Reddit)
 - [ ] feat: 'copy' button for diagrams
@@ -262,3 +261,9 @@ A quick-and-dirty list of improvements and next steps:
 - [x] docs: table of local commands
 - [x] refactor: change xpath queries to query selectors, add tests, fixtures
 - [x] testing: better sample that doesn't have sidebar and includes more representative group of diagrams
+- [x] build: commitlint
+
+### Options Page
+
+- [ ] feat: options based, based on popup code extracted from options script
+- [ ] check options UI works in extension screen as well as inline in tab
