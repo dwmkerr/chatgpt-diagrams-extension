@@ -40,3 +40,10 @@ jobs:
             echo "cannot find release..."
             exit 1
           fi
+
+      # Upload extension artifact.
+      - name: Upload Extension Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: chatgpt-diagrams-browser-extension
+          path: ./release/chatgpt-diagrams-extension.zip
