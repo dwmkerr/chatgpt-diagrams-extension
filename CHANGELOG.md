@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.0](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.6...v0.1.0) (2023-07-05)
+
+
+### Features
+
+* tab display mode ([#22](https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/22)) ([a91451e](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/a91451efc9f61abfefd6c46c54b0b57663613cb5))
+
+
+### Bug Fixes
+
+* validate mermaid content is correct in tests ([#23](https://github.com/dwmkerr/chatgpt-diagrams-extension/issues/23)) ([80e83ac](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/80e83ac1d254b172b9417424e6562beba41e2f10))
+
 ## [0.0.6](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.5...v0.0.6) (2023-05-23)
 
 
