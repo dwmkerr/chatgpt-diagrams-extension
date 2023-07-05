@@ -41,7 +41,7 @@ describe("prepare-code-block", () => {
     expect(codeBlockUpdated.isProcessed).toBeTruthy();
   });
 
-  test("can update the buttons in the toolbar", () => {
+  test("can update the buttons in the toolbar and prep container divs", () => {
     document.body.innerHTML = `
       <div>
           <p>Here's a simple diagram:</p>
@@ -71,16 +71,15 @@ describe("prepare-code-block", () => {
 
     //  Prepare the code block, which will add all of our diagram scaffolding
     //  elements.
-    const { showDiagramButton, showCodeButton } = prepareCodeBlock(
-      document,
-      codeBlock
-    );
+    const { showDiagramButton, showCodeButton, diagramTabContainer } =
+      prepareCodeBlock(document, codeBlock);
 
     //  Assert the button text, style, location.
     const toolbar = elementByTestId(document, "toolbar");
     const copyCodeButton = elementByTestId(document, "copy");
     const showDiagramStyle = window.getComputedStyle(showDiagramButton);
     const showCodeStyle = window.getComputedStyle(showCodeButton);
+    const tabContainerStyle = window.getComputedStyle(diagramTabContainer);
 
     expect(showDiagramButton.parentElement).toEqual(toolbar);
     expect(showDiagramButton.nextElementSibling).toEqual(showCodeButton);
@@ -90,5 +89,6 @@ describe("prepare-code-block", () => {
     expect(showCodeButton.nextElementSibling).toEqual(copyCodeButton);
     expect(showCodeButton.innerText).toEqual("Show code");
     expect(showCodeStyle.display).toEqual("none");
+    expect(tabContainerStyle.display).toEqual("none");
   });
 });
