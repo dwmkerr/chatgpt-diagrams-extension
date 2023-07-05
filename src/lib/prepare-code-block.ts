@@ -17,6 +17,7 @@ export function prepareCodeBlock(
   diagramTabContainer.id = `chatgpt-diagram-container-${codeBlock.index}`;
   diagramTabContainer.classList.add("p-4", "overflow-y-auto");
   diagramTabContainer.style.backgroundColor = "#FFFFFF";
+  diagramTabContainer.style.display = "none";
   codeBlock.codeContainerElement.after(diagramTabContainer);
 
   // //  Create the diagram 'after code' container.

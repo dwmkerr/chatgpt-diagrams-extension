@@ -253,6 +253,8 @@ A quick-and-dirty list of improvements and next steps:
 
 ### Version 0.2 Features
 
+- [ ] bug: tab container is not initially hidden
+- [ ] refactor: hide 'options' page
 - [ ] feat: 'copy' button for diagrams
 - [ ] feat: Lightbox for diagrams
 - [ ] feat: more descriptive error messages and improved error presentation
