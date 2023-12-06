@@ -258,6 +258,10 @@ A quick-and-dirty list of improvements and next steps:
 - [ ] feat: 'copy' button for diagrams
 - [ ] feat: Lightbox for diagrams
 - [ ] feat: more descriptive error messages and improved error presentation
+- [ ] build: auto deploy to chrome webstore: https://jam.dev/blog/automating-chrome-extension-publishing/
+- [ ] feat: share feedback link (GH issue, or Chrome Web Store, grab some content from the DOM?)
+- [ ] feat: hints on the error screen (e.g. "Did you include "use mermaid.js" in the text")
+- [ ] chore: issue template (prompt text, code output, screenshot)
 
 ### Cosmetic Improvements
 
