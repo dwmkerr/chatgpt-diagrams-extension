@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.1.0...v0.1.1) (2023-12-06)
+
+
+### Bug Fixes
+
+* remove noisy debug logging ([a051cef](https://github.com/dwmkerr/chatgpt-diagrams-extension/commit/a051cef0383d44deff53c73523902760dd268662))
+
 ## [0.1.0](https://github.com/dwmkerr/chatgpt-diagrams-extension/compare/v0.0.6...v0.1.0) (2023-07-05)
 
 
