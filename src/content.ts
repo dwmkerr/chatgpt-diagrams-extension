@@ -23,9 +23,13 @@ function updateDiagrams() {
   //  correctly classifies the code as mermaid (it is often rust/lus/scss, etc).
   const codeBlocks = findCodeBlocks(window.document);
   const unprocessedCodeBlocks = codeBlocks.filter((e) => !e.isProcessed);
-  console.log(
-    `Found ${unprocessedCodeBlocks.length}/${codeBlocks.length} unprocessed code blocks...`
-  );
+
+  //  TODO we should find a way to include this kind of console output only when
+  //  running locally (a bit like the developer title). Until then, disable it
+  //  as it is noisy.
+  // console.log(
+  //   `Found ${unprocessedCodeBlocks.length}/${codeBlocks.length} unprocessed code blocks...`
+  // );
 
   //  Loop through each unprocessed code block, then prepare each one, adding
   //  the diagram buttons and DOM elements.
