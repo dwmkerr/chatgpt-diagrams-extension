@@ -285,3 +285,7 @@ A quick-and-dirty list of improvements and next steps:
 ### Extension Popup
 
 - [ ] feat: counter for extension icon that shows number of diagrams processed
+
+### Other
+
+- [] fix: review the fix to the mermaidjs issue and see if it helps with bundling/packaging etc https://github.com/parcel-bundler/parcel/issues/8935#event-14676821933
