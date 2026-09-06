@@ -1,7 +1,7 @@
 # chatgpt-diagrams
 
 [![main](https://github.com/dwmkerr/chatgpt-diagrams-extension/actions/workflows/main.yaml/badge.svg)](https://github.com/dwmkerr/chatgpt-diagrams-extension/actions/workflows/main.yaml)
-[![codecov](https://codecov.io/gh/dwmkerr/chatgpt-diagrams-extension/branch/main/graph/badge.svg?token=6Wj5EwCVqf)](https://codecov.io/gh/dwmkerr/chatgpt-diagrams-extension)
+[![codecov](https://codecov.io/gh/dwmkerr/chatgpt-diagrams-extension/branch/main/graph/badge.svg?token=6Wj5EwCVqf)](https://codecov.io/gh/dwmkerr/chatgpt-diagrams-extension) [![Buy me a coffee](https://img.shields.io/badge/thanks-buy%20me%20a%20coffee-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr?frequency=one-time)
 
 A Chrome browser extension that renders diagrams in the ChatGPT website inline:
 
